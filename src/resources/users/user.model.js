@@ -13,16 +13,15 @@ class User {
     this.password = password;
   }
 
-  // Обрезаем вывод свойства password
-  static toResponse(user) {
+  // Скрыть вывод свойства 'password' для объекта User
+  static toRes(user) {
     const { id, name, login } = user;
     return { id, name, login };
   }
 
-  toObject() {
-    console.log(this.id);
-    const { id, name, login, password } = [ this.id, this.name, this.login, this.password ];
-    return { id, name, login, password };
+  // Создать и вернуть нового пользователя
+  static fromReq(body) {
+    return new User(body);
   }
   
 }

@@ -1,48 +1,39 @@
-const data = [
-  {
-    id: '1',
-    name: 'Joрn Doe',
-    login: 'JohnDoe',
-    password: 'P@ssw0rd'
-  },
-  {
-    id: '2',
-    name: 'Jane Doe',
-    login: 'JaneDoe',
-    password: 'P@ssw0rd'
-  },
-  {
-    id: '3',
-    name: 'Baby Doe',
-    login: 'BabyDoe',
-    password: 'P@ssw0rd'
-  },
-];
+const data = [];
 
-const getAll = async () => 
-  // TODO: mock implementation. should be replaced during task development
-   data
-;
+const getAll = async () => data;
 
-const getById = async (id) => [data.find((item) => item.id === id)];
+const getById = async (id) => data.find((item) => item.id === id);
 
-const createEntity = async (entity) => { 
-  data.push(entity);
-  console.log(data);
-}
-
-const updateById = async (entity) => {
-  let item = data.find((obj) => obj.id === entity.id);
-  
-  ({ item } = entity);
-  // data.push(entity);
-  return item;
+const addEntity = async (entity) => { 
+  const { id, name, login, password } = entity;
+  const len = data.push({ id, name, login, password });
+  // console.log('Итоговый массив пользователей:',data);
+  return data[len-1];
 };
 
-const deleteById = async (id) => 
-  // TODO: mock implementation. should be replaced during task development
-  // const _id = parseInt(id, 10);
-   [data.find((item) => item.id === id)]
-;
+const updateById = async (id, entity) => {
+  const index = data.findIndex((item) => item.id === id);
+  // console.log(`Получены данные ${entity}`);
+  // console.log(`Получен ID ${id} - найден элемент с индексом ${index}`);
+  
+  Object.keys(entity).forEach((key) => {
+    // console.log(`Проверка наличия свойства ${key}:`);
+    if(key in data[index]) { 
+      data[index][key] = entity[key];
+      // console.log(`свойство ${key} найдено - присвоено значение ${entity[key]}`);
+    }
+  });
 
-module.exports = { getAll, getById, createEntity, updateById, deleteById };
+  // console.log(`Обновленный объект ${data[index]}:`);
+  
+  return data[index];
+};
+
+const deleteById = async (id) => {
+  const index = data.findIndex((item) => item.id === id);
+  // console.log(`Получен ID ${id} - найден элемент с индексом ${index}`);
+  if (index >= 0) data.splice(index, 1);
+  // console.log(`Массив после удаления:`, data);
+};
+
+module.exports = { getAll, getById, addEntity, updateById, deleteById };
