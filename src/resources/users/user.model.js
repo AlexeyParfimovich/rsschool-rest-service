@@ -13,13 +13,13 @@ class User {
     this.password = password;
   }
 
-  // Скрыть вывод свойства 'password' для объекта User
+  // Фильтрация вывода свойств объекта
   static toRes(user) {
     const { id, name, login } = user;
     return { id, name, login };
   }
 
-  // Создать и вернуть нового пользователя
+  // Создать и вернуть новый объект
   static fromReq(body) {
     return new User(body);
   }

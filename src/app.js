@@ -2,7 +2,9 @@ const express = require('express');
 const swaggerUI = require('swagger-ui-express');
 const path = require('path');
 const YAML = require('yamljs');
+
 const userRouter = require('./resources/users/user.router');
+const boardRouter = require('./resources/boards/board.router');
 const errorHandler = require('./errors/errors.handler');
 
 const app = express();
@@ -24,6 +26,7 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('/users', userRouter);
+app.use('/boards', boardRouter);
 
 // Implement custom handler to process http-client-errors
 app.use(errorHandler);
