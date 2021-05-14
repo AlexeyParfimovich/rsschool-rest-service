@@ -5,10 +5,10 @@ const service = require('./board.service');
 const asyncWrapper = require('../../utils/asyncWrapper');
 
 // Get all boards
-router.route('/').get(async (req, res) => {
+router.route('/').get(asyncWrapper(async (req, res) => {
   const boards = await service.getAll();
   res.status(200).json(boards.map(Board.toRes));
-});
+}));
 
 // Get board by ID
 router.route('/:id').get(asyncWrapper(async (req, res) => {

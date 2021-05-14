@@ -1,4 +1,5 @@
 const { NOT_FOUND_ERROR } = require('../../errors/notFoundError');
+// const { BAD_REQUEST_ERROR } = require('../../errors/badRequestError');
 
 const ENTITY_NAME = 'user';
 const data = [];

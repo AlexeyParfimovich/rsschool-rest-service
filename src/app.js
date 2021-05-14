@@ -4,6 +4,7 @@ const path = require('path');
 const YAML = require('yamljs');
 
 const userRouter = require('./resources/users/user.router');
+const taskRouter = require('./resources/tasks/task.router');
 const boardRouter = require('./resources/boards/board.router');
 const errorHandler = require('./errors/errors.handler');
 
@@ -27,6 +28,7 @@ app.use('/', (req, res, next) => {
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
+app.use('/boards/:ownerId/tasks', taskRouter);
 
 // Implement custom handler to process http-client-errors
 app.use(errorHandler);

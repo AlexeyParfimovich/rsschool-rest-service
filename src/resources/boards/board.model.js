@@ -3,7 +3,7 @@ const uuid = require('uuid').v1;
 class Board {
   constructor({
     id = uuid(),
-    title = 'Default Border',
+    title = 'Default board',
     columns = []
   } = {}) {
     this.id = id;

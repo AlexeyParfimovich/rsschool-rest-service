@@ -5,10 +5,10 @@ const service = require('./user.service');
 const asyncWrapper = require('../../utils/asyncWrapper');
 
 // Get all users
-router.route('/').get(async (req, res) => {
+router.route('/').get(asyncWrapper(async (req, res) => {
   const users = await service.getAll();
   res.status(200).json(users.map(User.toRes));
-});
+}));
 
 // Get user by ID
 router.route('/:id').get(asyncWrapper(async (req, res) => {
