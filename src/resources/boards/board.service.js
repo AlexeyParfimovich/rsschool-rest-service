@@ -1,4 +1,4 @@
-const boards = require('./board.memory.repository');
+const boards = require('./board.repository');
 const deleteAllTasks = require('../tasks/task.service').deleteByBoard;
 
 const getAll = () => boards.getAll();

@@ -1,8 +1,8 @@
-const tasks = require('./task.memory.repository');
+const tasks = require('./task.repository');
 
-const getAll = (boardId) => tasks.getAll(boardId);
+const getAll = (boardId) => tasks.getAllFromBoard(boardId);
 
-const getById = (boardId, id) => tasks.getById(boardId, id);
+const getById = (boardId, id) => tasks.getFromBoardById(boardId, id);
 
 const addEntity = async (entity) => tasks.addEntity(entity);
 
@@ -16,7 +16,7 @@ const deleteById = async (boardId, id) => {
 /*
   TODO: Implement logic when somebody DELETEs User or Board
 */
-const deleteByBoard = async (boardId) => tasks.deleteByBoard(boardId);
+const deleteByBoard = async (boardId) => tasks.deleteAllFromBoard(boardId);
 
 const updateByMatch = (pattern, update) => tasks.updateByMatch(pattern, update);
 

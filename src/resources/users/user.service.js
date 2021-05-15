@@ -1,4 +1,4 @@
-const users = require('./user.memory.repository');
+const users = require('./user.repository');
 const updateTasks = require('../tasks/task.service').updateByMatch;
 
 const getAll = () => users.getAll();
