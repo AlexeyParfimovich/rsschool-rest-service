@@ -5,5 +5,13 @@
   "javascript.validate.enable": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "cSpell.ignoreWords": [
+    "doc",
+    "jsdocs",
+    "modules",
+    "node",
+    "resurse",
+    "test"
+  ]
 }
