@@ -1,20 +1,33 @@
-/*
-  Implementation of a simplest in-memory DB 
-*/
+/**
+ * Implementation of a simplest in-memory DB 
+ * @module inMemoryDB
+ */
+
+/**
+ * DB object which contains table arrays, which contains entities objects
+ * @type {Object<string, array<Object>>}
+ */
 const DB = {
   Users: [],
   Boards:[],
   Tasks: [],
 };
 
+/**
+ * Get all entities from the specified table
+ * @param {string} table - the name of the table to get entities
+ * @returns {module: typedefs.User} - the entity object
+ */
 async function getAllEntities(table) {
   return DB[table];
 };
 
+
 async function getAllByField(table, field, value) {
   return DB[table].filter((item) => item[field] === value);
 };
-// Эта функция дублирует предыдущую !
+
+
 async function getEntityById(table, id) {
   return DB[table].find((obj) => obj.id === id);
 };

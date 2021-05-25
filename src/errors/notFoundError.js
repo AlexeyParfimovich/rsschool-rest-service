@@ -1,8 +1,13 @@
-/*
-  Custom classe for 404 "not found" http-client-errors
+/**
+ * Custom class for 404 "not found" http-client-errors
+ * @module notFoundError
 */
+
 const { CLIENT_ERROR } = require('./clientError');
 
+/**
+ * @class
+ */
 class NOT_FOUND_ERROR extends CLIENT_ERROR {
   constructor(message) {
     super(`Bad Request. ${message}`);
