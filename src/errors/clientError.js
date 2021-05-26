@@ -1,19 +1,20 @@
-/*
-  Template for http-client-errors class
-*/
-
 /**
  * Template for http-client errors
  * @module clientError
  */
 
 /**
- * Http-client-errors class
- * @class
+ * Class of http-client errors
  */
 class CLIENT_ERROR extends Error {
+  /**
+   * @param {string} message - Error message
+   */
   constructor(message) {
     super(message);
+    /**
+     * @type {string}
+     */
     this.name = this.constructor.name;
   }
 };

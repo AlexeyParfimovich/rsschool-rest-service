@@ -4,8 +4,26 @@
  */
 
 /**
- * DB object which contains table arrays, which contains entities objects
- * @type {Object<string, array<Object>>}
+ * A database record entity 
+ * @typedef {Object.<string,string>} Entity
+ */
+
+/**
+ * A database table
+ * @typedef {Array.<Entity>} Table
+ */
+
+/**
+ * Object of database
+ * @typedef {Object} DataBase
+ * @prop {Table} Users - Table of User objects
+ * @prop {Table} Boards - Table of User objects
+ * @prop {Table} Tacks - Table of User objects
+ */
+
+/**
+ * In-memory database
+ * @const {DataBase}
  */
 const DB = {
   Users: [],
@@ -14,29 +32,53 @@ const DB = {
 };
 
 /**
- * Get all entities from the specified table
- * @param {string} table - the name of the table to get entities
- * @returns {module: typedefs.User} - the entity object
+ * Function to select and return all objects from a specified table
+ * @param {string} table - Table name to select data
+ * @returns {Promise<Array.<Entity>>} Array of all object form the table
  */
 async function getAllEntities(table) {
   return DB[table];
 };
 
-
+/**
+ * Function to select and return objects filtered by specified field
+ * @param {string} table - Table name to select data
+ * @param {string} field - Field name for data filtering 
+ * @param {string} value - Value to search for it
+ * @returns {Promise<Array.<Entity>>} Array of requested objects
+ */
 async function getAllByField(table, field, value) {
   return DB[table].filter((item) => item[field] === value);
 };
 
-
+/**
+ * Function for selecting and returning an object found at the specified ID
+ * @param {string} table - Table name to select data
+ * @param {string} id -  Object identifier value
+ * @returns {Promise<Entity>} Requested object
+ */
 async function getEntityById(table, id) {
   return DB[table].find((obj) => obj.id === id);
 };
 
+/**
+ * Function for adding an object to the database
+ * @param {string} table - Table name to add data
+ * @param {Entity} entity -  Object to add to the database
+ * @returns {Promise<Entity>} Added object
+ */
 async function addEntity(table, entity) {
   const len = DB[table].push(entity);
   return DB[table][len-1];
 };
 
+/**
+ * Function for adding an object to the database
+ * @param {string} table - Table name to update data
+ * @param {string} id -  Object identifier value
+ * @param {Entity} entity -  Object of attributes to update the existed one
+ * @returns {Promise<Entity>} Updated object
+ */
 async function updateEntity(table, id, entity) {
   const index = DB[table].findIndex((obj) => obj.id === id);
   
@@ -49,6 +91,12 @@ async function updateEntity(table, id, entity) {
   return DB[table][index];
 };
 
+/**
+ * Function to delete an object by a specified ID
+ * @param {string} table - Table name to delete data
+ * @param {string} id -  Object identifier value
+ * @returns {Promise<Entity>} Deleted object
+ */
 async function deleteEntity(table, id) {
   const index = DB[table].findIndex((obj) => obj.id === id);
 
@@ -57,6 +105,13 @@ async function deleteEntity(table, id) {
   return DB[table].splice(index, 1);
 };
 
+/**
+ * Function to delete objects by specified value of specified field
+ * @param {string} table - Table name to delete data
+ * @param {string} field - Field name for data filtering 
+ * @param {string} value - Value to search for it
+ * @returns {Promise<void>}
+ */
 async function deleteAllByField(table, field, value) {
   for(let i = DB[table].findIndex(obj => obj[field] === value);
       i >= 0;
@@ -65,6 +120,13 @@ async function deleteAllByField(table, field, value) {
       }
 };
 
+/**
+ * Function to update all objects by specified pattern
+ * @param {string} table - Table name to delete data
+ * @param {Entity} pattern - Set of attributes as a pattern for compare
+ * @param {Entity} update - Set of attributes for updating object that match the specified pattern
+ * @returns {Promise<void>}
+ */
 async function updateAllByPattern(table, pattern, update) {
   DB[table].forEach((item, index) => {
     if (Object.keys(pattern).every(key => item[key] === pattern[key])) {

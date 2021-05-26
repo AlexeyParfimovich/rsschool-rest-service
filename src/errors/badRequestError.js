@@ -1,12 +1,25 @@
-/*
-  Custom classe for 400 "bad request" http-client-errors
-*/
+/**
+ * 400 "bad request" http-client error
+ * @module badRequestError
+ */
+
 const { CLIENT_ERROR } = require('./clientError');
 
+/**
+ * Class of 400 http-client errors
+ * @extends CLIENT_ERROR
+ */
 class BAD_REQUEST_ERROR extends CLIENT_ERROR {
+  /**
+   * @param {string} message - Error message
+   */
   constructor(message) {
     super(`Bad Request. ${message}`);
-    this.status = 400;
+    /**
+     * Error status code
+     * @type {string}
+     */
+    this.status = '400';
   }
 };
 

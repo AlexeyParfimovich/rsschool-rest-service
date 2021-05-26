@@ -2,20 +2,16 @@
   "plugins": [],
   "recurseDepth": 10,
   "source": {
-      "include": ["src"],
-      "includePattern": ".js$",
-      "excludePattern": "(node_modules/ | jsdocs |test | doc)"
+      "include": "src",
+      "includePattern": ".+\\.js(doc|x)?$",
+      "excludePattern": "(^|\\/|\\\\)_"
   },
   "tags": {
-      "allowUnknownTags": true,
+      "allowUnknownTags": false,
       "dictionaries": ["jsdoc","closure"]
   },
   "templates": {
-      "cleverLinks": true,
-      "monospaceLinks": true
-  },
-  "opts": {
-    "resurse": true,
-    "destination": "./jsdocs/"
+      "cleverLinks": false,
+      "monospaceLinks": false
   }
 }

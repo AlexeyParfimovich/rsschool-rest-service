@@ -1,26 +1,28 @@
+/**
+ * User model
+ * @module userService
+ */
+
 const users = require('./user.repository');
 const updateTasks = require('../tasks/task.service').updateByMatch;
 
 /**
- * 
- * @returns 
+ * Function to get all entities from Users table
+ * @returns {Promise<Array.<Object.<string,string>>>} Array of users
  */
 const getAll = () => users.getAll();
 
 /**
- * 
- * @param {*} id 
- * @returns 
+ * Function to get all an entity from Users table by specified identifier
+ * @param {string} id - User identifier
+ * @returns {Promise<Object.<string,string>>} A user object
  */
 const getById = (id) => users.getById(id);
 
-/*
-  TODO: When somebody DELETEs User, all Tasks where User is assignee should be updated to put userId = null
-*/
-
 /**
- * 
- * @param {*} id 
+ * Function to delete an entity from Users table by specified identifier
+ * @param {string} id - User identifier
+ * @returns {Promise<void>}
  */
 const deleteById = async (id) => {
   await users.deleteById(id);
@@ -28,17 +30,17 @@ const deleteById = async (id) => {
 }
 
 /**
- * 
- * @param {*} entity 
- * @returns 
+ * Function for adding an entity into the Users table
+ * @param {Object.<string, string>} entity - Object for adding
+ * @returns {Promise<Object.<string,string>>} A user object added
  */
 const addEntity = (entity) => users.addEntity(entity);
 
 /**
- * 
- * @param {*} id 
- * @param {*} entity 
- * @returns 
+ * Function for updating an entity in the Users table by specified identifier
+ * @param {string} id - User identifier
+ * @param {Object.<string, string>} entity - Object for updating
+ * @returns {Promise<Object.<string,string>>} A user object updated
  */
 const updateById = (id, entity) => users.updateById(id, entity);
 

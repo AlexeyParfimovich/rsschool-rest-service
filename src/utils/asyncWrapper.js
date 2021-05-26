@@ -2,12 +2,19 @@
  * @module asyncWrapper
  */
 
+/**
+ * @callback functionToWrap
+ * @param {{}} req - Request
+ * @param {{}} res - Response
+ * @param {function} [next]
+ * @returns {void}
+ */
 
 /**
- * Wrapper function to to change the try/catch into a promise for any Express handler
+ * Function to wrap the try/catch into a promise for any Express handler
  * @see https://zellwk.com/blog/async-await-express/
- * @param {*} callback 
- * @returns 
+ * @param {functionToWrap} callback - a function to be wrapped  
+ * @returns {function} function that wraps a given callback
  */
 function asyncWrapper(callback) {
   return (req, res, next) => {

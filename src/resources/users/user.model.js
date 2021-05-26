@@ -1,11 +1,35 @@
+/**
+ * User model
+ * @module userModel
+ */
+
 const uuid = require('uuid').v1;
+
+/**
+ * Object received from DB
+ * @typedef {Object} ObjectFromDB
+ * @prop {string} id - User identifier
+ * @prop {string} name - User name
+ * @prop {string} login - User login
+ * @prop {string} password - User password 
+ */
+
+
+/**
+ * Object received from http request
+ * @typedef {Object} ObjectFromJSON
+ * @prop {string=} id - User identifier
+ * @prop {string=} name - User name
+ * @prop {string=} login - User login
+ * @prop {string=} password - User password 
+ */
 
 /**
  * Class to create a User object
  */
 class User {
   /**
-   * @param {{}} [userInfo] User information obtained from the request 
+   * @param {ObjectFromJSON} user - User information obtained from the request
    */
   constructor({
     id = uuid(),
@@ -37,8 +61,8 @@ class User {
 
   /**
    * Static method to filter off the password field
-   * @param {{}} user 
-   * @returns {{}}
+   * @param {ObjectFromDB} user 
+   * @returns {{id: string, name: string, login: string}} Set of User attributes without password
    * @static
    */
   static toRes(user) {
@@ -48,8 +72,8 @@ class User {
 
   /**
    * Static method to create, initiate and return new User
-   * @param {Object} body 
-   * @returns {Object}
+   * @param {ObjectFromJSON} body - request body contains User object
+   * @returns {ObjectFromDB} User object
    * @static
    */
   static fromReq(body) {
