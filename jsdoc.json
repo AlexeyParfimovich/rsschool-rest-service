@@ -6,7 +6,6 @@
       "includePattern": ".js$",
       "excludePattern": "(node_modules/ | jsdocs |test | doc)"
   },
-  "sourceType": "module",
   "tags": {
       "allowUnknownTags": true,
       "dictionaries": ["jsdoc","closure"]
