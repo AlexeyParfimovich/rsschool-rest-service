@@ -14,16 +14,11 @@
  */
 
 /**
- * Object of database
- * @typedef {Object} DataBase
+ * In-memory database
+ * @const {Object} Database
  * @prop {Table} Users - Table of User objects
  * @prop {Table} Boards - Table of User objects
  * @prop {Table} Tacks - Table of User objects
- */
-
-/**
- * In-memory database
- * @const {DataBase}
  */
 const DB = {
   Users: [],
@@ -34,7 +29,7 @@ const DB = {
 /**
  * Function to select and return all objects from a specified table
  * @param {string} table - Table name to select data
- * @returns {Promise<Array.<Entity>>} Array of all object form the table
+ * @returns {Promise<Array.<Entity>>} Array of all object from the table
  */
 async function getAllEntities(table) {
   return DB[table];

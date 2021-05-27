@@ -1,12 +1,12 @@
 /**
- * 404 "not found" http-client errors
- * @module notFoundError
+ * Class of the http-error 404 "Not found"
+ * @module httpError404
 */
 
-const { CLIENT_ERROR } = require('./clientError');
+const { CLIENT_ERROR } = require('./httpErrors');
 
 /**
- * Class of 404 http-client error
+ * Class of the http-error 404
  * @extends CLIENT_ERROR
  */
 class NOT_FOUND_ERROR extends CLIENT_ERROR {

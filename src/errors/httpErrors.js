@@ -1,10 +1,10 @@
 /**
- * Template for http-client errors
- * @module clientError
+ * General class of client http-errors
+ * @module httpErrors
  */
 
 /**
- * Class of http-client errors
+ * Class of client http-errors
  */
 class CLIENT_ERROR extends Error {
   /**

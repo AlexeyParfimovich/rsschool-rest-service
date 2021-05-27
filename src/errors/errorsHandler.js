@@ -3,7 +3,7 @@
  * @module errorHandler
  */
 
-const { CLIENT_ERROR } = require('./clientError');
+const { CLIENT_ERROR } = require('./httpErrors');
 
 /**
  * Middleware function to handle custom errors

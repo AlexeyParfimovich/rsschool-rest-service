@@ -1,12 +1,12 @@
 /**
- * 400 "bad request" http-client error
- * @module badRequestError
+ * Class of the http-error 400 "Bad request"
+ * @module httpError400
  */
 
-const { CLIENT_ERROR } = require('./clientError');
+const { CLIENT_ERROR } = require('./httpErrors');
 
 /**
- * Class of 400 http-client errors
+ * Class of the http-error 400
  * @extends CLIENT_ERROR
  */
 class BAD_REQUEST_ERROR extends CLIENT_ERROR {

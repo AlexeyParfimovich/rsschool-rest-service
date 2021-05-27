@@ -7,17 +7,16 @@ const uuid = require('uuid').v1;
 
 /**
  * Object received from DB
- * @typedef {Object} ObjectFromDB
+ * @typedef {Object} ObjDB
  * @prop {string} id - User identifier
  * @prop {string} name - User name
  * @prop {string} login - User login
  * @prop {string} password - User password 
  */
 
-
 /**
  * Object received from http request
- * @typedef {Object} ObjectFromJSON
+ * @typedef {Object} ObjJSON
  * @prop {string=} id - User identifier
  * @prop {string=} name - User name
  * @prop {string=} login - User login
@@ -29,7 +28,7 @@ const uuid = require('uuid').v1;
  */
 class User {
   /**
-   * @param {ObjectFromJSON} user - User information obtained from the request
+   * @param {ObjJSON} user - User information obtained from the request
    */
   constructor({
     id = uuid(),
@@ -60,9 +59,9 @@ class User {
   };
 
   /**
-   * Static method to filter off the password field
-   * @param {ObjectFromDB} user 
-   * @returns {{id: string, name: string, login: string}} Set of User attributes without password
+   * Static method to filter off the password attribute
+   * @param {ObjDB} user - User object from DB
+   * @returns {ObjJSON} Set of User attributes without password
    * @static
    */
   static toRes(user) {
@@ -72,8 +71,8 @@ class User {
 
   /**
    * Static method to create, initiate and return new User
-   * @param {ObjectFromJSON} body - request body contains User object
-   * @returns {ObjectFromDB} User object
+   * @param {ObjJSON} body - Request body contains User attributes
+   * @returns {ObjDB} User object
    * @static
    */
   static fromReq(body) {

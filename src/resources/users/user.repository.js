@@ -1,11 +1,11 @@
 /**
- * User model
+ * User repository
  * @module userRepository
  */
 
 const dataBase = require('../../utils/inMemoryDb');
 
-const { NOT_FOUND_ERROR } = require('../../errors/notFoundError');
+const { NOT_FOUND_ERROR } = require('../../errors/httpError404');
 
 /**
  * @const {string}

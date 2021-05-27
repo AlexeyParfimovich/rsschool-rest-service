@@ -1,7 +1,6 @@
 const dataBase = require('../../utils/inMemoryDb');
 
-const { NOT_FOUND_ERROR } = require('../../errors/notFoundError');
-// const { BAD_REQUEST_ERROR } = require('../../errors/badRequestError');
+const { NOT_FOUND_ERROR } = require('../../errors/httpError404');
 
 const TABLE_NAME = 'Tasks';
 const ENTITY_NAME = 'task';

@@ -1,5 +1,5 @@
 /**
- * User model
+ * User service
  * @module userService
  */
 
