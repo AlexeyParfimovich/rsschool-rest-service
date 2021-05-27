@@ -2,6 +2,7 @@
  * Task model
  * @module taskModel
  */
+
 const uuid = require('uuid').v1;
 
 /**

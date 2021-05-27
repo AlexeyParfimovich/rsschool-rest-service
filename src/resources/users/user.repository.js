@@ -4,14 +4,12 @@
  */
 
 const dataBase = require('../../utils/inMemoryDb');
-
 const { NOT_FOUND_ERROR } = require('../../errors/httpError404');
 
 /**
  * @const {string}
  */
 const TABLE_NAME = 'Users';
-
 /**
  * @const {string}
  */

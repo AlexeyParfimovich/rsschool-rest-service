@@ -10,14 +10,14 @@ const updateTasks = require('../tasks/task.service').updateByMatch;
  * Function to get all entities from Users table
  * @returns {Promise<Array.<Object.<string,string>>>} Array of users
  */
-const getAll = () => users.getAll();
+const getAll = async () => users.getAll();
 
 /**
  * Function to get all an entity from Users table by specified identifier
  * @param {string} id - User identifier
  * @returns {Promise<Object.<string,string>>} A user object
  */
-const getById = (id) => users.getById(id);
+const getById = async (id) => users.getById(id);
 
 /**
  * Function to delete an entity from Users table by specified identifier
@@ -34,7 +34,7 @@ const deleteById = async (id) => {
  * @param {Object.<string, string>} entity - Object for adding
  * @returns {Promise<Object.<string,string>>} A user object added
  */
-const addEntity = (entity) => users.addEntity(entity);
+const addEntity = async (entity) => users.addEntity(entity);
 
 /**
  * Function for updating an entity in the Users table by specified identifier
@@ -42,6 +42,6 @@ const addEntity = (entity) => users.addEntity(entity);
  * @param {Object.<string, string>} entity - Object for updating
  * @returns {Promise<Object.<string,string>>} A user object updated
  */
-const updateById = (id, entity) => users.updateById(id, entity);
+const updateById = async (id, entity) => users.updateById(id, entity);
 
 module.exports = { getAll, getById, addEntity, updateById, deleteById };

@@ -1,10 +1,25 @@
-const dataBase = require('../../utils/inMemoryDb');
+/**
+ * Task repository
+ * @module taskRepository
+ */
 
+const dataBase = require('../../utils/inMemoryDb');
 const { NOT_FOUND_ERROR } = require('../../errors/httpError404');
 
+/**
+ * @const {string}
+ */
 const TABLE_NAME = 'Tasks';
+/**
+ * @const {string}
+ */
 const ENTITY_NAME = 'task';
 
+/**
+ * Function to get all entities from Task table by specified Board
+ * @param {string} boardId - Board identifier
+ * @returns {Promise<Array.<Object>>} Array of all objects from the table
+ */
 const getAllFromBoard = async (boardId) => {
   const items = await dataBase.getAllByField(TABLE_NAME, 'boardId', boardId);
   if (!items.length) {
@@ -13,6 +28,12 @@ const getAllFromBoard = async (boardId) => {
   return items;
 }
 
+/**
+ * Function to get an entity from Task table for specified Board
+ * @param {string} boardId - Board identifier
+ * @param {string} taskId - Task identifier
+ * @returns {Promise<Object.<string,string>>} An object selected by id
+ */
 const getFromBoardById = async (boardId, id) => {
   const items = await getAllFromBoard(boardId);
   const item = items.find(obj => obj.id === id);
@@ -22,8 +43,19 @@ const getFromBoardById = async (boardId, id) => {
   return item;
 };
 
-const addEntity = async (entity) =>dataBase.addEntity(TABLE_NAME, entity);
+/**
+ * Function for adding an entity into the Tasks table
+ * @param {Object.<string, string>} entity - Object for adding
+ * @returns {Promise<Object.<string,string>>} An object added to the table
+ */
+const addEntity = async (entity) => dataBase.addEntity(TABLE_NAME, entity);
 
+/**
+ * Function for updating an entity in the Tasks table by specified identifier
+ * @param {string} taskId - Task identifier
+ * @param {Object.<string, string>} entity - Object for updating
+ * @returns {Promise<Object.<string,string>>} An object updated in the table
+ */
 const updateById = async (id, entity) => {
   const item = await dataBase.updateEntity(TABLE_NAME, id, entity);
   if (!item) {
@@ -32,16 +64,32 @@ const updateById = async (id, entity) => {
   return item;
 };
 
+/**
+ * Function to deleting all an entity from Tasks table by specified identifier
+ * @param {string} taskId - Task identifier
+ * @returns {Promise<void>}
+ */
 const deleteById = async (id) => {
   if (! await dataBase.deleteEntity(TABLE_NAME, id)) {
     throw new NOT_FOUND_ERROR(`Couldn't find a ${ENTITY_NAME} with ID:${id} `);
   } 
 };
 
+/**
+ * Function to deleting all an entity from Tasks table for specified Board
+ * @param {string} boardId - Board identifier
+ * @returns {Promise<void>}
+ */
 const deleteAllFromBoard = async (boardId) => {
   await dataBase.deleteAllByField(TABLE_NAME, 'boardId', boardId);
 };
 
+/**
+ * Function to update all Tasks matched by specified pattern
+ * @param {Object.<string,string>} pattern - Set of attributes as a pattern for compare
+ * @param {Object.<string,string>} update - Set of attributes for updating object that match the specified pattern
+ * @returns {Promise<void>}
+ */
 const updateByMatch = async (pattern, update) => {
   await dataBase.updateAllByPattern(TABLE_NAME, pattern, update);
 };
