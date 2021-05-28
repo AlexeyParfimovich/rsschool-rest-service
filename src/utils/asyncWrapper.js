@@ -17,10 +17,8 @@
  * @param {cbTemplate} callback - a function to be wrapped  
  * @returns {cbTemplate} function that wraps a given callback
  */
-function asyncWrapper(callback) {
+export default function asyncWrapper(callback) {
   return (req, res, next) => {
     callback(req, res, next).catch(next);
   }
 };
-
-module.exports = asyncWrapper;

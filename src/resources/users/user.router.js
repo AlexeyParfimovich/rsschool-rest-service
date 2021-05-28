@@ -3,11 +3,12 @@
  * @module userRouter
  */
 
-const router = require('express').Router();
+import { Router } from 'express';
+import { User } from './user.model.js';
+import * as service from './user.service.js';
+import asyncWrapper from '../../utils/asyncWrapper.js';
 
-const User = require('./user.model');
-const service = require('./user.service');
-const asyncWrapper = require('../../utils/asyncWrapper');
+const router = Router();
 
 /**
  * Get all users
@@ -21,8 +22,8 @@ router.route('/').get(asyncWrapper(async (req, res) => {
  * Get user by ID
  */ 
 router.route('/:id').get(asyncWrapper(async (req, res) => {
-    const user = await service.getById(req.params.id);
-    res.status(200).json(User.toRes(user));
+  const user = await service.getById(req.params.id);
+  res.status(200).json(User.toRes(user));
 }));
 
 /**
@@ -49,4 +50,4 @@ router.route('/:id').delete(asyncWrapper(async (req, res) => {
   res.sendStatus(200);
 }));
 
-module.exports = router;
+export default router;

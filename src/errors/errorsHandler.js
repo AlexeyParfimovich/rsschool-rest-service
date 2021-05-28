@@ -3,7 +3,7 @@
  * @module errorHandler
  */
 
-const { CLIENT_ERROR } = require('./httpErrors');
+import { CLIENT_ERROR } from './httpErrors.js';
 
 /**
  * Middleware function to handle custom errors
@@ -13,7 +13,7 @@ const { CLIENT_ERROR } = require('./httpErrors');
  * @param {function} next 
  * @returns {void}
  */
-function handler(err, req, res, next) {
+export default function handler(err, req, res, next) {
   if (err instanceof CLIENT_ERROR) {
     res.status(err.status).send(err.message);
   } else if (err) {
@@ -21,5 +21,3 @@ function handler(err, req, res, next) {
   }
   next();
 };
-
-module.exports = handler ;

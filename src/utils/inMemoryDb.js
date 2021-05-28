@@ -82,7 +82,7 @@ async function updateEntity(table, id, entity) {
   Object.keys(entity).forEach((key) => {
     if(key in DB[table][index]) { 
       DB[table][index][key] = entity[key];
-  }});
+    }});
   return DB[table][index];
 };
 
@@ -109,10 +109,10 @@ async function deleteEntity(table, id) {
  */
 async function deleteAllByField(table, field, value) {
   for(let i = DB[table].findIndex(obj => obj[field] === value);
-      i >= 0;
-      i = DB[table].findIndex(obj => obj[field] === value)) { 
-        DB[table].splice(i, 1);
-      }
+    i >= 0;
+    i = DB[table].findIndex(obj => obj[field] === value)) { 
+    DB[table].splice(i, 1);
+  }
 };
 
 /**
@@ -128,10 +128,10 @@ async function updateAllByPattern(table, pattern, update) {
       Object.keys(update).forEach(key => {
         if(key in DB[table][index]) DB[table][index][key] = update[key];
       })
-  }});
+    }});
 };
 
-module.exports = { 
+export { 
   getAllEntities,
   getAllByField,
   getEntityById,

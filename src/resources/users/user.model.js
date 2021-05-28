@@ -3,7 +3,7 @@
  * @module userModel
  */
 
-const uuid = require('uuid').v1;
+import { v1 as uuid } from 'uuid';
 
 /**
  * Object received from DB
@@ -26,7 +26,7 @@ const uuid = require('uuid').v1;
 /**
  * Class to create a User object
  */
-class User {
+export class User {
   /**
    * @param {ObjJSON} user - User information obtained from the request
    */
@@ -78,7 +78,4 @@ class User {
   static fromReq(body) {
     return new User(body);
   };
-  
 }
-
-module.exports = User;

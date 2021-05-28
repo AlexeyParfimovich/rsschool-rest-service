@@ -3,11 +3,12 @@
  * @module boardRouter
  */
 
-const router = require('express').Router();
+import { Router } from 'express';
+import { Board } from './board.model.js';
+import * as service from './board.service.js';
+import asyncWrapper from '../../utils/asyncWrapper.js';
 
-const Board = require('./board.model');
-const service = require('./board.service');
-const asyncWrapper = require('../../utils/asyncWrapper');
+const router = Router();
 
 /**
  * Get all boards
@@ -21,8 +22,8 @@ router.route('/').get(asyncWrapper(async (req, res) => {
  * Get board by ID
  */
 router.route('/:id').get(asyncWrapper(async (req, res) => {
-    const board = await service.getById(req.params.id);
-    res.status(200).json(Board.toRes(board));
+  const board = await service.getById(req.params.id);
+  res.status(200).json(Board.toRes(board));
 }));
 
 /**
@@ -49,4 +50,4 @@ router.route('/:id').delete(asyncWrapper(async (req, res) => {
   res.sendStatus(200);
 }));
 
-module.exports = router;
+export default router;

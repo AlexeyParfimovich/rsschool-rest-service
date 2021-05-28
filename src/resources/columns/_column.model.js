@@ -4,7 +4,7 @@
  * @deprecated
  */
 
-const uuid = require('uuid').v1;
+import { v1 as uuid } from 'uuid';
 
 /**
  * Object received from DB
@@ -25,7 +25,7 @@ const uuid = require('uuid').v1;
 /**
  * Class to create a Board object
  */
-class Column {
+export class Column {
   /**
    * @param {ObjJSON} column - Column information obtained from the request
    */
@@ -72,5 +72,3 @@ class Column {
   }
   
 }
-
-module.exports = Column;

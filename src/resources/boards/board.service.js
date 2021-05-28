@@ -3,8 +3,8 @@
  * @module boardService
  */
 
-const boards = require('./board.repository');
-const deleteAllTasks = require('../tasks/task.service').deleteByBoard;
+import * as boards from './board.repository.js';
+import {deleteByBoard as deleteAllTasks } from '../tasks/task.service.js';
 
 /**
  * Function to get all entities from Boards table
@@ -44,4 +44,4 @@ const addEntity = (entity) => boards.addEntity(entity);
  */
 const updateById = (id, entity) => boards.updateById(id, entity);
 
-module.exports = { getAll, getById, addEntity, updateById, deleteById };
+export { getAll, getById, addEntity, updateById, deleteById };

@@ -3,7 +3,7 @@
  * @module boardModel
  */
 
-const uuid = require('uuid').v1;
+import { v1 as uuid } from 'uuid';
 
 /**
  * Object received from DB
@@ -24,8 +24,8 @@ const uuid = require('uuid').v1;
 /**
  * Class to create a Board object
  */
-class Board {
-   /**
+export class Board {
+  /**
    * @param {ObjJSON} board - Board information obtained from the request
    */
   constructor({
@@ -50,7 +50,7 @@ class Board {
     this.columns = columns;
   }
 
-   /**
+  /**
    * Static method to filter off some attributes
    * @param {ObjDB} board - Board object from DB
    * @returns {ObjJSON} Set of Board attributes without filtered attributes
@@ -68,8 +68,5 @@ class Board {
    */
   static fromReq(body) {
     return new Board(body);
-  }
-  
+  } 
 }
-
-module.exports = Board;

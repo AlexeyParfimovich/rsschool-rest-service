@@ -3,7 +3,7 @@
  * @module httpError404
 */
 
-const { CLIENT_ERROR } = require('./httpErrors');
+import { CLIENT_ERROR } from './httpErrors.js';
 
 /**
  * Class of the http-error 404
@@ -23,4 +23,4 @@ class NOT_FOUND_ERROR extends CLIENT_ERROR {
   }
 };
 
-module.exports = { NOT_FOUND_ERROR };
+export { NOT_FOUND_ERROR };

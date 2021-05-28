@@ -3,8 +3,8 @@
  * @module userRepository
  */
 
-const dataBase = require('../../utils/inMemoryDb');
-const { NOT_FOUND_ERROR } = require('../../errors/httpError404');
+import * as dataBase from '../../utils/inMemoryDb.js';
+import { NOT_FOUND_ERROR } from '../../errors/httpError404.js';
 
 /**
  * @const {string}
@@ -66,4 +66,4 @@ const deleteById = async (id) => {
   } 
 };
 
-module.exports = { getAll, getById, addEntity, updateById, deleteById };
+export { getAll, getById, addEntity, updateById, deleteById };

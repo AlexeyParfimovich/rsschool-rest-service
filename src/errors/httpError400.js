@@ -3,7 +3,7 @@
  * @module httpError400
  */
 
-const { CLIENT_ERROR } = require('./httpErrors');
+import { CLIENT_ERROR } from './httpErrors.js';
 
 /**
  * Class of the http-error 400
@@ -23,4 +23,4 @@ class BAD_REQUEST_ERROR extends CLIENT_ERROR {
   }
 };
 
-module.exports = { BAD_REQUEST_ERROR };
+export { BAD_REQUEST_ERROR };

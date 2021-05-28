@@ -3,8 +3,9 @@
  * @module userService
  */
 
-const users = require('./user.repository');
-const updateTasks = require('../tasks/task.service').updateByMatch;
+import * as users from './user.repository.js';
+
+import { updateByMatch as updateTasks } from '../tasks/task.service.js';
 
 /**
  * Function to get all entities from Users table
@@ -44,4 +45,4 @@ const addEntity = async (entity) => users.addEntity(entity);
  */
 const updateById = async (id, entity) => users.updateById(id, entity);
 
-module.exports = { getAll, getById, addEntity, updateById, deleteById };
+export { getAll, getById, addEntity, updateById, deleteById };

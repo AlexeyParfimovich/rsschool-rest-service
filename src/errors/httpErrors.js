@@ -19,4 +19,4 @@ class CLIENT_ERROR extends Error {
   }
 };
 
-module.exports = { CLIENT_ERROR };
+export { CLIENT_ERROR };

@@ -3,7 +3,7 @@
  * @module taskModel
  */
 
-const uuid = require('uuid').v1;
+ import { v1 as uuid } from 'uuid';
 
 /**
  * Object received from DB
@@ -32,7 +32,7 @@ const uuid = require('uuid').v1;
 /**
  * Class to create a Task object
  */
-class Task {
+export class Task {
   /**
    * @param {ObjJSON} task - Task information obtained from the request
    */
@@ -106,5 +106,3 @@ class Task {
   }
   
 }
-
-module.exports = Task;

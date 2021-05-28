@@ -3,8 +3,7 @@
  * @module taskService
  */
 
-const tasks = require('./task.repository');
-
+import * as tasks from './task.repository.js';
 
 /**
  * Function to get all entities from Tasks table for specified Board
@@ -63,4 +62,4 @@ const deleteByBoard = async (boardId) => tasks.deleteAllFromBoard(boardId);
  */
 const updateByMatch = (pattern, update) => tasks.updateByMatch(pattern, update);
 
-module.exports = { getAll, getById, addEntity, updateById, updateByMatch, deleteById, deleteByBoard };
+export { getAll, getById, addEntity, updateById, updateByMatch, deleteById, deleteByBoard };
