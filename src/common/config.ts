@@ -4,19 +4,19 @@ import path from 'path';
 const __dirname = path.resolve();
 
 dotenv.config({
-  path: path.join(__dirname, '../../.env')
+  path: path.join(__dirname, './.env')
 });
 
 const {PORT} = process.env;
 const {NODE_ENV} = process.env;
-const {MONGO_CONNECTION_STRING} = process.env;
+const {AUTH_MODE} = process.env;
+const {DB_CONNECTION} = process.env;
 const {JWT_SECRET_KEY} = process.env;
-const AUTH_MODE = process.env.AUTH_MODE === 'true';
 
 export { 
   PORT,
   NODE_ENV,
-  MONGO_CONNECTION_STRING,
+  AUTH_MODE,
+  DB_CONNECTION,
   JWT_SECRET_KEY,
-  AUTH_MODE
 };
