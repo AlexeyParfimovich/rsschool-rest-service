@@ -27,7 +27,7 @@ const getAll = async () => dataBase.getAllEntities(TABLE_NAME);;
  * @returns {Promise<Object.<string,string>>} An object selected by id
  */
 const getById = async (id) => {
-  const item = await dataBase.getEntityById(TABLE_NAME, id);
+  const item = await dataBase.getEntityByField(TABLE_NAME, 'id', id);
   if (!item) {
     throw new NOT_FOUND_ERROR(`Couldn't find a ${ENTITY_NAME} with ID:${id} `);
   }
@@ -48,7 +48,7 @@ const addEntity = async (entity) => dataBase.addEntity(TABLE_NAME, entity);
  * @returns {Promise<Object.<string,string>>} An object updated in the table
  */
 const updateById = async (id, entity) => {
-  const item = await dataBase.updateEntity(TABLE_NAME, id, entity);
+  const item = await dataBase.updateEntityByField(TABLE_NAME, 'id', id, entity);
   if (!item) {
     throw new NOT_FOUND_ERROR(`Couldn't find a ${ENTITY_NAME} with ID:${id} `);
   }
@@ -61,7 +61,7 @@ const updateById = async (id, entity) => {
  * @returns {Promise<void>}
  */
 const deleteById = async (id) => {
-  if (! await dataBase.deleteEntity(TABLE_NAME, id)) {
+  if (! await dataBase.deleteEntityByField(TABLE_NAME, 'id', id)) {
     throw new NOT_FOUND_ERROR(`Couldn't find a ${ENTITY_NAME} with ID:${id} `);
   } 
 };

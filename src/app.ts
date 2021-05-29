@@ -8,7 +8,7 @@ import taskRouter from './resources/tasks/task.router.js';
 import boardRouter from './resources/boards/board.router.js';
 import errorHandler from './errors/errorsHandler.js';
 
-const __dirname: string = path.resolve();;
+const __dirname = path.resolve();;
 const swaggerDocument: JsonObject = YAML.load(path.join(__dirname, './doc/api.yaml'));
 
 const app = express();

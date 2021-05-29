@@ -21,7 +21,7 @@ const ENTITY_NAME = 'task';
  * @returns {Promise<Array.<Object>>} Array of all objects from the table
  */
 const getAllFromBoard = async (boardId) => {
-  const items = await dataBase.getAllByField(TABLE_NAME, 'boardId', boardId);
+  const items = await dataBase.getEntitiesByField(TABLE_NAME, 'boardId', boardId);
   if (!items.length) {
     throw new NOT_FOUND_ERROR(`Couldn't find any ${ENTITY_NAME} on the board ${boardId} `);
   }
@@ -57,7 +57,7 @@ const addEntity = async (entity) => dataBase.addEntity(TABLE_NAME, entity);
  * @returns {Promise<Object.<string,string>>} An object updated in the table
  */
 const updateById = async (id, entity) => {
-  const item = await dataBase.updateEntity(TABLE_NAME, id, entity);
+  const item = await dataBase.updateEntityByField(TABLE_NAME, 'id', id, entity);
   if (!item) {
     throw new NOT_FOUND_ERROR(`Couldn't find a ${ENTITY_NAME} with ID:${id} `);
   }
@@ -70,7 +70,7 @@ const updateById = async (id, entity) => {
  * @returns {Promise<void>}
  */
 const deleteById = async (id) => {
-  if (! await dataBase.deleteEntity(TABLE_NAME, id)) {
+  if (! await dataBase.deleteEntityByField(TABLE_NAME, 'id', id)) {
     throw new NOT_FOUND_ERROR(`Couldn't find a ${ENTITY_NAME} with ID:${id} `);
   } 
 };
@@ -81,7 +81,7 @@ const deleteById = async (id) => {
  * @returns {Promise<void>}
  */
 const deleteAllFromBoard = async (boardId) => {
-  await dataBase.deleteAllByField(TABLE_NAME, 'boardId', boardId);
+  await dataBase.deleteEntitiesByField(TABLE_NAME, 'boardId', boardId);
 };
 
 /**
@@ -91,7 +91,7 @@ const deleteAllFromBoard = async (boardId) => {
  * @returns {Promise<void>}
  */
 const updateByMatch = async (pattern, update) => {
-  await dataBase.updateAllByPattern(TABLE_NAME, pattern, update);
+  await dataBase.updateEntitiesByPattern(TABLE_NAME, pattern, update);
 };
 
 export { getAllFromBoard, getFromBoardById, addEntity, updateById, deleteById, deleteAllFromBoard, updateByMatch };
