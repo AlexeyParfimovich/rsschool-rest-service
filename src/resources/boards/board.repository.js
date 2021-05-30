@@ -28,7 +28,7 @@ const getAll = async () => dataBase.getAllEntities(TABLE_NAME);;
  */
 const getById = async (id) => {
   const item = await dataBase.getEntityByField(TABLE_NAME, 'id', id);
-  if (!item) {
+  if (!item || Object.keys(item).length === 0) {
     throw new NOT_FOUND_ERROR(`Couldn't find a ${ENTITY_NAME} with ID:${id} `);
   }
   return item;

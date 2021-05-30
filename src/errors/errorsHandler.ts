@@ -3,17 +3,13 @@
  * @module errorHandler
  */
 
+import { Request, Response, NextFunction } from 'express';
 import { CLIENT_ERROR } from './httpErrors.js';
 
 /**
  * Middleware function to handle custom errors
- * @param {{}} err - Object of error
- * @param {{}} req - Request
- * @param {{}} res - Response
- * @param {function} next 
- * @returns {void}
  */
-export default function handler(err, req, res, next) {
+export default function handler(err: Error, _req: Request, res: Response, next: NextFunction): void {
   if (err instanceof CLIENT_ERROR) {
     res.status(err.status).send(err.message);
   } else if (err) {

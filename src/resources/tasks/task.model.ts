@@ -4,24 +4,25 @@
  */
 
  import { v1 as uuid } from 'uuid';
+ import { Entity } from '../../utils/inMemoryDb.js';
 
 /**
  * Object received from DB
  */
-interface ITask {
-  id?: string; // Task identifier
-  title?: string; // Task title
-  order?: string; // Task order
-  description?: string; // Task description 
-  userId?: string; // User identifier
-  boardId?: string; // Board identifier
-  columnId?: string; // Column identifier
-};
+// interface ITask {
+//   id?: string; // Task identifier
+//   title?: string; // Task title
+//   order?: string; // Task order
+//   description?: string; // Task description 
+//   userId?: string | null; // User identifier
+//   boardId?: string | null; // Board identifier
+//   columnId?: string | null; // Column identifier
+// };
 
 /**
  * Class to create a Task object
  */
-export class Task implements ITask {
+export class Task {
   id: string; // Task identifier
 
   title: string; // Task title
@@ -30,21 +31,21 @@ export class Task implements ITask {
 
   description: string; // Task description 
 
-  userId?: string; // User identifier
+  userId: string | null; // User identifier
 
-  boardId?: string; // Board identifier
+  boardId: string | null; // Board identifier
 
-  columnId?: string; // Column identifier
+  columnId: string | null; // Column identifier
 
   constructor({
     id = uuid(),
     title = 'Default task',
     order = '1',
     description = '',
-    userId = undefined,
-    boardId = undefined,
-    columnId = undefined
-  }: ITask = {}) {
+    userId = null,
+    boardId = null,
+    columnId = null
+  }: Partial<Task> = {}) {
     
     this.id = id;
     this.title = title;
@@ -58,17 +59,17 @@ export class Task implements ITask {
   /**
    * Static method to filter off some attributes
    */
-  static toRes(task: ITask): ITask {
+  static toRes(task: Entity): Entity {
     return task;
   }
 
   /**
    * Static method to create, initiate and return new Task
    */
-  static fromReq(boardId: string, body: ITask): ITask {
-    const task = new Task(body);
+  static fromReq(boardId: string, reqBody: Entity): Entity {
+    const task = new Task(reqBody);
     task.boardId = boardId;
-    return task;
+    return { ...task };
   }
   
 }

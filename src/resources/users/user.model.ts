@@ -4,21 +4,22 @@
  */
 
 import { v1 as uuid } from 'uuid';
+import { Entity } from '../../utils/inMemoryDb.js';
 
 /**
  * User entity received from DB
  */
-interface IUser {
-  id: string; // User identifier
-  name: string; // User name
-  login: string; // User login
-  password: string; // User password 
-};
+// interface IUser {
+//   id: string; // User identifier
+//   name: string; // User name
+//   login: string; // User login
+//   password: string; // User password 
+// };
 
 /**
  * Class to create a User entity
  */
-export class User implements IUser {
+export class User {
   id: string; // User identifier
 
   name: string; // User name
@@ -32,7 +33,7 @@ export class User implements IUser {
     name = 'Default User',
     login = 'user',
     password = 'P@ssw0rd'
-  }: Partial<IUser> = {}) {
+  }: Partial<User> = {}) {
     
     this.id = id;
     this.name = name;
@@ -43,7 +44,7 @@ export class User implements IUser {
   /**
    * Static method to filter off the password attribute
    */
-  static toRes(user: IUser): Partial<IUser> {
+  static toRes(user: Entity): Entity {
     const { id, name, login } = user;
     return { id, name, login };
   };
@@ -51,7 +52,8 @@ export class User implements IUser {
   /**
    * Static method to create, initiate and return new User
    */
-  static fromReq(reqBody: Partial<IUser>): IUser {
-    return new User(reqBody);
+  static fromReq(reqBody: Entity): Entity {
+    const user = new User(reqBody);
+    return { ...user } ;
   };
 }
