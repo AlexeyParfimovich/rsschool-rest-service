@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "es2020", // "es2020", // Use CommonJs instead Modules
-    "allowJs": true, // false, allow JS files
+    "module": "es2020",
+    "allowJs": false,
     "outDir": "./build",
     "rootDir": "./src",
     "downlevelIteration": false,

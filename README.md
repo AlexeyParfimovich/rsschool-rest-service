@@ -17,10 +17,16 @@ git clone {repository URL}
 npm install
 ```
 
+## Building application
+
+```
+npm run build
+```
+
 ## Running application
 
 ```
-npm start
+npm run start
 ```
 
 After starting the app on port (4000 as default) you can open
@@ -34,13 +40,13 @@ After application running open new terminal and enter:
 To run all tests without authorization
 
 ```
-npm test
+npm run test
 ```
 
 To run only one of all test suites (users, boards or tasks)
 
 ```
-npm test <suite name>
+npm run test <suite name>
 ```
 
 To run all test with authorization
