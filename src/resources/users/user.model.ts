@@ -7,16 +7,6 @@ import { v1 as uuid } from 'uuid';
 import { Entity } from '../../utils/inMemoryDb.js';
 
 /**
- * User entity received from DB
- */
-// interface IUser {
-//   id: string; // User identifier
-//   name: string; // User name
-//   login: string; // User login
-//   password: string; // User password 
-// };
-
-/**
  * Class to create a User entity
  */
 export class User {

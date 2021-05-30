@@ -6,7 +6,7 @@
 /**
  * Database record entity type
  */
-export type Entity = Record<string, string | number | null | undefined>;
+export type Entity = Record<string, string | number | [] |null | undefined>;
 /**
  * Database table type
  */

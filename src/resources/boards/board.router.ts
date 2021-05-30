@@ -13,7 +13,7 @@ const router = Router();
 /**
  * Get all boards
  */
-router.route('/').get(asyncWrapper(async (req, res) => {
+router.route('/').get(asyncWrapper(async (_req, res) => {
   const boards = await service.getAll();
   res.status(200).json(boards.map(Board.toRes));
 }));
@@ -22,7 +22,7 @@ router.route('/').get(asyncWrapper(async (req, res) => {
  * Get board by ID
  */
 router.route('/:id').get(asyncWrapper(async (req, res) => {
-  const board = await service.getById(req.params.id);
+  const board = await service.getById(req.params['id'] || '');
   res.status(200).json(Board.toRes(board));
 }));
 
@@ -38,7 +38,7 @@ router.route('/').post(async (req, res) => {
  * Update board's data by ID
  */
 router.route('/:id').put(asyncWrapper(async (req, res) => {
-  const board = await service.updateById(req.params.id, req.body);
+  const board = await service.updateById(req.params['id'] || '', req.body);
   res.status(200).json(Board.toRes(board));
 }));
 
@@ -46,7 +46,7 @@ router.route('/:id').put(asyncWrapper(async (req, res) => {
  * Delete board by ID
  */
 router.route('/:id').delete(asyncWrapper(async (req, res) => {
-  await service.deleteById(req.params.id);
+  await service.deleteById(req.params['id'] || '');
   res.sendStatus(200);
 }));
 

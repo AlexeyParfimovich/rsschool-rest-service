@@ -35,4 +35,10 @@ const addEntity = async (entity: Entity): Promise<Entity> => users.addEntity(ent
  */
 const updateById = async (id: string, entity: Entity): Promise<Entity> => users.updateById(id, entity);
 
-export { getAll, getById, addEntity, updateById, deleteById };
+export { 
+  getAll,
+  getById,
+  addEntity,
+  updateById,
+  deleteById 
+};

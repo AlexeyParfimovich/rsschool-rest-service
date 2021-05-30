@@ -7,19 +7,6 @@
  import { Entity } from '../../utils/inMemoryDb.js';
 
 /**
- * Object received from DB
- */
-// interface ITask {
-//   id?: string; // Task identifier
-//   title?: string; // Task title
-//   order?: string; // Task order
-//   description?: string; // Task description 
-//   userId?: string | null; // User identifier
-//   boardId?: string | null; // Board identifier
-//   columnId?: string | null; // Column identifier
-// };
-
-/**
  * Class to create a Task object
  */
 export class Task {
