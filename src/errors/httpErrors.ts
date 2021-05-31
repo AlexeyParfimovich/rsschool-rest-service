@@ -2,18 +2,19 @@
  * General class of client http-errors
  * @module httpErrors
  */
+ 
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Class of client http-errors
  */
-class CLIENT_ERROR extends Error {
-  status: number; // Error status code
+class HTTP_ERROR extends Error {
+  status = StatusCodes.INTERNAL_SERVER_ERROR; // Error status code
 
   constructor(message: string) {
     super(message);
     this.name = this.constructor.name;
-    this.status = 500;
   }
 };
 
-export { CLIENT_ERROR };
+export { HTTP_ERROR };

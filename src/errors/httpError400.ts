@@ -3,17 +3,16 @@
  * @module httpError400
  */
 
-import { CLIENT_ERROR } from './httpErrors.js';
+import { StatusCodes, getReasonPhrase} from 'http-status-codes';
+import { HTTP_ERROR } from './httpErrors.js';
 
 /**
  * Class of the http-error 400
  */
-class BAD_REQUEST_ERROR extends CLIENT_ERROR {
-  status: number; // Error status code
-
+class BAD_REQUEST_ERROR extends HTTP_ERROR {
   constructor(message: string) {
-    super(`Bad Request. ${message}`);
-    this.status = 400;
+    super(message || getReasonPhrase(StatusCodes.BAD_REQUEST));
+    this.status = StatusCodes.BAD_REQUEST;
   }
 };
 
