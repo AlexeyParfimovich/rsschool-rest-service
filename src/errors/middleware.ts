@@ -25,19 +25,33 @@ function errorHandler(err: Error, _req: Request, res: Response, next: NextFuncti
 };
 
 /**
+ * Middleware function to log unhandled rejection
+ */
+function unhandledRejectionLogger(event: PromiseRejectionEvent):void {
+  logger.log('error', `Unhandled rejection detected: ${event.reason}, ${event.promise}`);
+  process.exit(1);
+}
+
+/**
+ * Middleware function to log uncaught exception
+ */
+function uncaughtExceptionLogger(error: Error):Promise<void> {
+  logger.log('error', `Uncaught error captured: ${error.message}`);
+  process.exit(1);
+}
+
+/**
  * Middleware function to log http requests
  */
 function httpRequestLogger(req: Request, res: Response, next: NextFunction): void {
-  const {method, url} = req;
   const start = Date.now(); // process.hrtime
-
   next();
-
-  finished(res, () => {
+  finished(req, res, () => {
+    const {method, url, params, body } = req; 
     const ms = Date.now() - start;
     const {statusCode} = res;
-    logger.log('info', `${method} ${url} ${statusCode} [${ms}ms]`);
+    logger.log('info', `${method} ${url} query params: ${JSON.stringify(params)} body: ${JSON.stringify(body)} status code: ${statusCode} [${ms}ms]`, { httpReq: true });
   })
 };
 
-export { errorHandler, httpRequestLogger };
+export { errorHandler, unhandledRejectionLogger, uncaughtExceptionLogger, httpRequestLogger };

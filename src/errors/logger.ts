@@ -1,29 +1,40 @@
 import pkg from 'winston';
-import { LOG_ERROR_FILE, LOG_INFO_FILE } from '../common/config.js';
+import { NODE_ENV, LOGGING_SUPPRESS, LOG_ERROR_FILE, LOG_REQUEST_FILE } from '../common/config.js';
 
 const {createLogger, format, transports} = pkg;
 
+// Function allows log messages only if they have { httpReq: true }
+const allowHttpReq = format((info) => {
+  if (!info['httpReq']) { return false; }
+  return info;
+}); 
+
 export const logger = createLogger({
-  level: 'silly',
+  silent: LOGGING_SUPPRESS,
+  level: 'info',
   format: format.combine(
-    format.colorize(),
-    format.cli(),
+    format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+    // format.errors({ stack: true }),
+    // format.splat(),
+    format.json()
   ),
+  defaultMeta: { service: 'rsschool-rest-service' },
   transports: [
-    new transports.Console(),
+    new transports.File({ level: 'error', filename: LOG_ERROR_FILE }),
     new transports.File({
-      filename: LOG_ERROR_FILE,
-      level: 'error',
-      format: format.combine(
-        format.json()
-      )
-    }),
-    new transports.File({
-      filename: LOG_INFO_FILE,
-      level: 'info',
-      format: format.combine(
-        format.json()
-      )
-    }),
+      filename: LOG_REQUEST_FILE, 
+      format: format.combine(allowHttpReq()) 
+    })
   ]
 });
+
+if (NODE_ENV === 'development') {
+  logger.add(new transports.Console({
+    format: format.combine(
+      format.colorize(),
+      format.simple()
+    )
+  }));
+}

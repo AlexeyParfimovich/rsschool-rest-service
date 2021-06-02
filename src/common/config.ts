@@ -7,13 +7,18 @@ dotenv.config({
   path: path.join(__dirname, './.env')
 });
 
-const {PORT} = process.env;
-const {NODE_ENV} = process.env;
-const {AUTH_MODE} = process.env;
-const {DB_CONNECTION} = process.env;
-const {JWT_SECRET_KEY} = process.env;
-const {LOG_ERROR_FILE} = process.env;
-const {LOG_INFO_FILE} = process.env;
+const { 
+  PORT,
+  NODE_ENV,
+  DB_CONNECTION,
+  JWT_SECRET_KEY,
+  LOG_INFO_FILE,
+  LOG_ERROR_FILE,
+  LOG_REQUEST_FILE
+} = process.env;
+
+const AUTH_MODE = process.env['AUTH_MODE'] === 'true';
+const LOGGING_SUPPRESS = process.env['LOGGING_SUPPRESS'] === 'true';
 
 export { 
   PORT,
@@ -21,6 +26,8 @@ export {
   AUTH_MODE,
   DB_CONNECTION,
   JWT_SECRET_KEY,
-  LOG_ERROR_FILE,
+  LOGGING_SUPPRESS,
   LOG_INFO_FILE,
+  LOG_ERROR_FILE,
+  LOG_REQUEST_FILE
 };
