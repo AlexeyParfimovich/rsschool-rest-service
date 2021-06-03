@@ -27,18 +27,18 @@ function errorHandler(err: Error, _req: Request, res: Response, next: NextFuncti
 /**
  * Middleware function to log unhandled rejection
  */
-function unhandledRejectionLogger(event: PromiseRejectionEvent):void {
-  logger.log('error', `Unhandled rejection detected: ${event.reason}, ${event.promise}`);
-  process.exit(1);
-}
+function unhandledRejectionLogger(event: PromiseRejectionEvent): void {
+  logger.log('error', `Unhandled rejection detected: ${JSON.stringify(event)}`,
+   () => process.exit(1))
+};
 
 /**
  * Middleware function to log uncaught exception
  */
-function uncaughtExceptionLogger(error: Error):Promise<void> {
-  logger.log('error', `Uncaught error captured: ${error.message}`);
-  process.exit(1);
-}
+function uncaughtExceptionLogger(error: Error): void {
+  logger.log('error', `Uncaught error captured: ${error}`,
+  () => process.exit(1))
+};
 
 /**
  * Middleware function to log http requests
