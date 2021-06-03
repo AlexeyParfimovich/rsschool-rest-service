@@ -42,10 +42,9 @@ process.on('unhandledRejection', middleware.unhandledRejectionLogger);
 process.on('uncaughtException', middleware.uncaughtExceptionLogger);
 
 // Testing unhandled rejection catcher
- Promise.reject(Error('Testing unhandled rejection catching'));
+// Promise.reject(new Error('Testing unhandled rejection catching'));
 
 // Testing uncaught exception catcher
- throw Error('Testing uncaught exception catching');
-
+// throw Error('Testing uncaught exception catching');
 
 export default app;

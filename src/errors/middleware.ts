@@ -15,20 +15,21 @@ import { logger } from './logger.js';
  */
 function errorHandler(err: Error, _req: Request, res: Response, next: NextFunction): void {
   if (err instanceof HTTP_ERROR) {
+    logger.log('error',`${err.status} ${err.stack}`);  
     res.status(err.status).send(err.message);
   } else if (err) {
+    logger.log('error',`${StatusCodes.INTERNAL_SERVER_ERROR} ${err.stack}`);  
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
   }
 
-  logger.log('error',err);
   next();
 };
 
 /**
  * Middleware function to log unhandled rejection
  */
-function unhandledRejectionLogger(event: PromiseRejectionEvent): void {
-  logger.log('error', `Unhandled rejection detected: ${JSON.stringify(event)}`,
+function unhandledRejectionLogger(event: Error): void {
+  logger.log('error', `Unhandled rejection detected: ${event.stack}`,
    () => process.exit(1))
 };
 
@@ -36,7 +37,7 @@ function unhandledRejectionLogger(event: PromiseRejectionEvent): void {
  * Middleware function to log uncaught exception
  */
 function uncaughtExceptionLogger(error: Error): void {
-  logger.log('error', `Uncaught error captured: ${error}`,
+  logger.log('error', `Uncaught error captured: ${error.stack}`,
   () => process.exit(1))
 };
 
@@ -44,13 +45,14 @@ function uncaughtExceptionLogger(error: Error): void {
  * Middleware function to log http requests
  */
 function httpRequestLogger(req: Request, res: Response, next: NextFunction): void {
+  const { method, url } = req; 
   const start = Date.now(); // process.hrtime
   next();
   finished(req, res, () => {
-    const {method, url, params, body } = req; 
+    const { query, params, body } = req; 
     const ms = Date.now() - start;
     const {statusCode} = res;
-    logger.log('info', `${method} ${url} query params: ${JSON.stringify(params)} body: ${JSON.stringify(body)} status code: ${statusCode} [${ms}ms]`, { httpReq: true });
+    logger.log('info', `${method} ${url} query_params: ${JSON.stringify(query)} url_params: ${JSON.stringify(params)} body: ${JSON.stringify(body)} status_code: ${statusCode} [${ms}ms]`, { httpReq: true });
   })
 };
 
