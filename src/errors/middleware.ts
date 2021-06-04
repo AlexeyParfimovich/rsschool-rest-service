@@ -52,7 +52,7 @@ function httpRequestLogger(req: Request, res: Response, next: NextFunction): voi
     const { query, params, body } = req; 
     const ms = Date.now() - start;
     const {statusCode} = res;
-    logger.log('info', `${method} ${url} query_params: ${JSON.stringify(query)} url_params: ${JSON.stringify(params)} body: ${JSON.stringify(body)} status_code: ${statusCode} [${ms}ms]`, { httpReq: true });
+    logger.log('info', `${method} ${url} query_params: ${JSON.stringify(query)} request_params: ${JSON.stringify(params)} request_body: ${JSON.stringify(body)} status_code: ${statusCode} [${ms}ms]`, { httpReq: true });
   })
 };
 
