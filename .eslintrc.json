@@ -14,19 +14,27 @@
     }
   },
   "settings": {
-    "noInlineConfig": true
+    "noInlineConfig": true,
+    "import/resolver": {
+      "typescript": {},
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:node/recommended",
     "airbnb-base",
+    "eslint:recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
   "rules": {
-    "import/extensions": "off",
     "linebreak-style": "off",
-    "node/no-unsupported-features/es-syntax": "off",
+    "import/extensions": "off",
     "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "node/no-unsupported-features/es-syntax": "off",
+    "dot-notation": "off" // Switch it off due the error ts(4111) "Property comes from an index signature, so it must be accessed with []"
   }
 }

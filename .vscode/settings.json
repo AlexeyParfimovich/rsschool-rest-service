@@ -5,5 +5,24 @@
   "javascript.validate.enable": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "js/ts.implicitProjectConfig.checkJs": true,  // Enable type checking
+  "cSpell.ignoreWords": [
+    "doc",
+    "jsdocs",
+    "modules",
+    "node",
+    "resurse",
+    "test",
+    "внимание",
+    "гавно",
+    "конфликта",
+    "костыль",
+    "некогда",
+    "преобразованием",
+    "присвоения",
+    "разбираться",
+    "разобраться",
+    "типов"
+  ]
 }
