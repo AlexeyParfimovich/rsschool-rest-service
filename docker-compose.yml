@@ -4,16 +4,20 @@ services:
 
   node:
     container_name: rest-service
+    # image: rsschool-rest-service_node:latest
     env_file: 
       - .env
     build: 
       context: .
       dockerfile: Dockerfile.node
-      args: 
-        PORT: ${PORT}
-        WDIR: ${WORKDIR}
+      # args: 
+      #   WORKDIR: ${WORKDIR}
+      #   PORT: ${PORT}
     ports:
       - ${PORT}:${PORT}
+    environment: 
+      - WORKDIR=${WORKDIR}
+      - PORT=${PORT}
     volumes: 
       - .\\logs:${WORKDIR}/logs
       - .\\doc:${WORKDIR}/doc:ro
@@ -22,13 +26,17 @@ services:
         source: .\\.env
         target: ${WORKDIR}.env
         read_only: true
+    networks: 
+      - front
+      - back
     depends_on:
       - postgres
-    restart: always
-#    command: npm run start
+    restart: on-failure
+    # command: npm run start
 
   postgres:
     container_name: postgres
+    # image: rsschool-rest-service_postgres:latest
     env_file: 
       - .env
     build: 
@@ -43,4 +51,16 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes: 
       - .\\database\\pgdata:${WORKDIR}/data
-    restart: always
+    networks: 
+      - back 
+    restart: on-failure
+
+networks: 
+
+  # Network to connect host to rest-service container
+  front:
+    driver: bridge
+  
+  # Network to connect rest-service container to postgres container
+  back:
+    driver: bridge

@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import * as config from "./common/config.js";
+import { logger } from './errors/logger.js';
 
 // database username   password
 const sequelize = new Sequelize(
@@ -15,7 +16,7 @@ const sequelize = new Sequelize(
 )
 
 sequelize.authenticate()
-.then(() => console.log(`Connected to DB ${config.POSTGRES_HOST} : ${config.POSTGRES_PORT}`))
-.catch((err: Error) => console.log(`Error: ${err}`));
+.then(() => logger.log('info', `Connected to DB ${config.POSTGRES_HOST} : ${config.POSTGRES_PORT}`))
+.catch((err: Error) => logger.log('error', `DB error: ${err}`));
 
 export default sequelize;

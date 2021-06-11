@@ -8,12 +8,13 @@ import userRouter from './resources/users/user.router.js';
 import taskRouter from './resources/tasks/task.router.js';
 import boardRouter from './resources/boards/board.router.js';
 import * as middleware from './errors/middleware.js';
+import { logger } from './errors/logger.js';
 
 const __dirname = path.resolve();;
 const swaggerDocument: JsonObject = YAML.load(path.join(__dirname, './doc/api.yaml'));
 
 db.sync()
- .catch(err => console.log(err));
+ .catch(err => logger.log('error', `DB error: ${err}`));
 
 const app = express();
 
@@ -27,7 +28,7 @@ app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use('/', (req, res, next) => {
   if (req.originalUrl === '/') {
-    res.send('Service is running 1!');
+    res.send('Service is running!');
     return;
   }
   next();

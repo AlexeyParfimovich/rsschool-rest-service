@@ -2,11 +2,11 @@
 
 FROM node:14-alpine
 
-ARG WDIR
-ARG PORT
+# ARG WORKDIR
+# ARG PORT
 
 # Create application folder
-WORKDIR ${WDIR:-/usr/app}
+WORKDIR ${WORKDIR:-/usr/app}
 
 # Copy dependencies config files into the apps folder
 COPY package*.json entrypoint.sh ./

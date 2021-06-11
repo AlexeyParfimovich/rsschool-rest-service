@@ -1,3 +1,5 @@
 # escape=`
 
 FROM postgres:alpine
+
+# EXPOSE ${POSTGRES_PORT:-5432}
