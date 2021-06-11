@@ -1,0 +1,46 @@
+version: '3'
+
+services: 
+
+  node:
+    container_name: rest-service
+    env_file: 
+      - .env
+    build: 
+      context: .
+      dockerfile: Dockerfile.node
+      args: 
+        PORT: ${PORT}
+        WDIR: ${WORKDIR}
+    ports:
+      - ${PORT}:${PORT}
+    volumes: 
+      - .\\logs:${WORKDIR}/logs
+      - .\\doc:${WORKDIR}/doc:ro
+      - .\\build:${WORKDIR}/build:ro
+      - type: bind
+        source: .\\.env
+        target: ${WORKDIR}.env
+        read_only: true
+    depends_on:
+      - postgres
+    restart: always
+#    command: npm run start
+
+  postgres:
+    container_name: postgres
+    env_file: 
+      - .env
+    build: 
+      context: .
+      dockerfile: Dockerfile.pg
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment: 
+      PGDATA: ${WORKDIR}/data
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes: 
+      - .\\database\\pgdata:${WORKDIR}/data
+    restart: always
