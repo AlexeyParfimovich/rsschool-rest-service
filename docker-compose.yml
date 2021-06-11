@@ -4,7 +4,7 @@ services:
 
   node:
     container_name: rest-service
-    # image: rsschool-rest-service_node:latest
+    image: aparfimovich/rsschool-rest-service_node:latest
     env_file: 
       - .env
     build: 
@@ -36,7 +36,7 @@ services:
 
   postgres:
     container_name: postgres
-    # image: rsschool-rest-service_postgres:latest
+    image: aparfimovich/rsschool-rest-service_postgres:latest
     env_file: 
       - .env
     build: 
