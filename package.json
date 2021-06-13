@@ -10,7 +10,7 @@
   "main": "build/server.js",
   "scripts": {
     "build": "tsc --noEmitOnError",
-    "start": "nodemon --legacy-watch build/server.js",
+    "start": "nodemon --delay 5 --legacy-watch --exitcrash build/server.js",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
