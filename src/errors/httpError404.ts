@@ -1,19 +1,18 @@
 /**
  * Class of the http-error 404 "Not found"
  * @module httpError404
-*/
+ */
 
-import { CLIENT_ERROR } from './httpErrors.js';
+import { StatusCodes, getReasonPhrase} from 'http-status-codes';
+import { HTTP_ERROR } from './httpErrors.js';
 
 /**
  * Class of the http-error 404
  */
-class NOT_FOUND_ERROR extends CLIENT_ERROR {
-  status: number; // Error status code
-
+class NOT_FOUND_ERROR extends HTTP_ERROR {
   constructor(message: string) {
-    super(`Bad Request. ${message}`);
-    this.status = 404;
+    super(message || getReasonPhrase(StatusCodes.NOT_FOUND));
+    this.status = StatusCodes.NOT_FOUND;
   }
 };
 
