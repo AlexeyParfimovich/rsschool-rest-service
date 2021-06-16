@@ -19,11 +19,11 @@ services:
       - WORKDIR=${WORKDIR}
       - PORT=${PORT}
     volumes: 
-      - .\\logs:${WORKDIR}/logs
-      - .\\doc:${WORKDIR}/doc:ro
-      - .\\build:${WORKDIR}/build:ro
+      - ./logs:${WORKDIR}/logs
+      - ./doc:${WORKDIR}/doc:ro
+      - ./build:${WORKDIR}/build:ro
       - type: bind
-        source: .\\.env
+        source: ./.env
         target: ${WORKDIR}.env
         read_only: true
     networks: 
@@ -50,7 +50,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes: 
-      - .\\database\\pgdata:${WORKDIR}/data
+      - ./database/pgdata:${WORKDIR}/data
     networks: 
       - back 
     restart: on-failure

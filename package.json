@@ -51,13 +51,16 @@
     "express": "4.17.1",
     "http-status-codes": "^2.1.4",
     "pg": "^8.6.0",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.2",
     "swagger-ui-express": "4.1.6",
+    "typeorm": "^0.2.34",
     "uuid": "8.3.2",
     "winston": "^3.3.3",
     "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@types/es6-shim": "^0.31.41",
     "@types/express": "^4.17.12",
     "@types/node": "^15.6.1",
     "@types/sequelize": "^4.28.9",
