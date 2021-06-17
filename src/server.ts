@@ -3,7 +3,7 @@ import { createConnection } from 'typeorm';
 
 import { PORT, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD } from './common/config.js';
 import { logger } from './errors/logger.js';
-import { User } from "./resources/users/user.model.js";
+import { User } from "./resources/users/user.entity.js";
 import app from './app.js';
 
 createConnection({

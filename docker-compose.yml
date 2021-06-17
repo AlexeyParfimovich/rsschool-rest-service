@@ -19,16 +19,17 @@ services:
       - WORKDIR=${WORKDIR}
       - PORT=${PORT}
     volumes: 
-      - ./logs:${WORKDIR}/logs
-      - ./doc:${WORKDIR}/doc:ro
-      - ./build:${WORKDIR}/build:ro
-      - type: bind
-        source: ./.env
-        target: ${WORKDIR}.env
-        read_only: true
+      - .:${WORKDIR}
+      # - ./logs:${WORKDIR}/logs
+      # - ./doc:${WORKDIR}/doc:ro
+      # - ./build:${WORKDIR}/build:ro
+      # - type: bind
+      #   source: ./.env
+      #   target: ${WORKDIR}.env
+      #   read_only: true
     networks: 
-      - front
       - back
+      # - front
     depends_on:
       - postgres
     restart: on-failure
@@ -57,10 +58,11 @@ services:
 
 networks: 
 
-  # Network to connect host to rest-service container
-  front:
-    driver: bridge
-  
   # Network to connect rest-service container to postgres container
   back:
     driver: bridge
+  
+    # Network to connect host to rest-service container
+  # front:
+  #   driver: bridge
+  

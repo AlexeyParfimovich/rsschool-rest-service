@@ -5,7 +5,6 @@
 
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { v1 as uuid } from 'uuid';
-// import { Entity } from '../../utils/inMemoryDb.js';
 
 /**
  * Class to create a User entity
@@ -46,11 +45,4 @@ export class User {
     return { id, name, login };
   };
 
-  /**
-   * Static method to create, initiate and return new User
-   */
-  // static fromReq(reqBody: Partial<User>): User {
-  //   const user = new User(reqBody);
-  //   return { ...user } ;
-  // };
 }
