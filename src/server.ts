@@ -5,6 +5,7 @@ import { PORT, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRE
 import { logger } from './errors/logger.js';
 import { User } from "./resources/users/user.entity.js";
 import { Board } from "./resources/boards/board.entity.js";
+import { Task } from "./resources/tasks/task.entity.js";
 import app from './app.js';
 
 createConnection({
@@ -15,7 +16,7 @@ createConnection({
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   entities: [
-      User, Board,
+      User, Board, Task,
   ],
   synchronize: true,
   logging: false

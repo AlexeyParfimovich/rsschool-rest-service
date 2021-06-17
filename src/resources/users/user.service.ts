@@ -35,7 +35,7 @@ async function getByIdUser(id: string): Promise<User> {
   const repository = getManager().getRepository(User);
   const user = await repository.findOne(id);
   if (!user) {
-    throw new NOT_FOUND_ERROR(`Couldn't find a user with ID:${id} `);
+    throw new NOT_FOUND_ERROR(`Couldn't find user with ID:${id} `);
   }
   return user;
 };
@@ -47,11 +47,10 @@ async function updateByIdUser(id: string, dto: UserDto): Promise<User> {
   const repository = getManager().getRepository(User);
   const user = await repository.findOne(id);
   if (!user) {
-    throw new NOT_FOUND_ERROR(`Couldn't find a user with ID:${id} `);
+    throw new NOT_FOUND_ERROR(`Couldn't find user with ID:${id} `);
   }
-  Object.assign(user,dto);
-  await repository.save(user);
-  return user;
+  const result = await repository.save({...user, ...dto});
+  return result;
 };
 
 // /**
@@ -61,7 +60,7 @@ async function deleteByIdUser(id: string): Promise<void> {
   const repository = getManager().getRepository(User);
   const user = await repository.findOne(id);
   if (!user) {
-    throw new NOT_FOUND_ERROR(`Couldn't find a user with ID:${id} `);
+    throw new NOT_FOUND_ERROR(`Couldn't find user with ID:${id} `);
   }
   await repository.remove(user);
 

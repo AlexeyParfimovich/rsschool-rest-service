@@ -50,9 +50,8 @@ async function updateByIdBoard(id: string, dto: BoardDto): Promise<Board> {
   if (!board) {
     throw new NOT_FOUND_ERROR(`Couldn't find a board with ID:${id} `);
   }
-  Object.assign(board,dto);
-  await repository.save(board);
-  return board;
+  const result = await repository.save({...board, ...dto});
+  return result;
 };
 
 /**
