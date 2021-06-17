@@ -4,6 +4,7 @@ import { createConnection } from 'typeorm';
 import { PORT, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD } from './common/config.js';
 import { logger } from './errors/logger.js';
 import { User } from "./resources/users/user.entity.js";
+import { Board } from "./resources/boards/board.entity.js";
 import app from './app.js';
 
 createConnection({
@@ -14,7 +15,7 @@ createConnection({
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   entities: [
-      User,
+      User, Board,
   ],
   synchronize: true,
   logging: false

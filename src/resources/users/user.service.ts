@@ -3,37 +3,28 @@
  * @module userService
  */
 
- import { getManager } from "typeorm";
- import { UserDto } from "./user.dto.js";
- import { User } from "./user.entity.js";
- 
- import { NOT_FOUND_ERROR } from '../../errors/httpError404.js';
+import { getManager } from "typeorm";
 
-// import { updateByMatch as updateTasks } from '../tasks/task.service.js';
+import { UserDto } from "./user.dto.js";
+import { User } from "./user.entity.js";
+import { NOT_FOUND_ERROR } from '../../errors/httpError404.js';
 
 // /**
 //  * Function adds an entity into the Users table
 //  */
-async function addUser(entity: UserDto): Promise<User> { 
-
-  const postRepository = getManager().getRepository(User);
-
-  const newPost = postRepository.create(entity);
-
-  await postRepository.save(newPost);
-
-  return newPost;
+async function addUser(dto: UserDto): Promise<User> { 
+  const repository = getManager().getRepository(User);
+  const user = repository.create(dto);
+  await repository.save(user);
+  return user;
 };
 
 // /**
 //  * Function gets all entities from the Users table
 //  */
 async function getAllUsers(): Promise<User[]> {
-
-  const postRepository = getManager().getRepository(User);
-
-  const users = await postRepository.find();
-
+  const repository = getManager().getRepository(User);
+  const users = await repository.find();
   return users;
 };
 
@@ -41,11 +32,8 @@ async function getAllUsers(): Promise<User[]> {
 //  * Function gets an entity from the Users table by specified identifier
 //  */
 async function getByIdUser(id: string): Promise<User> {
-
-  const postRepository = getManager().getRepository(User);
-
-  const user = await postRepository.findOne(id);
-
+  const repository = getManager().getRepository(User);
+  const user = await repository.findOne(id);
   if (!user) {
     throw new NOT_FOUND_ERROR(`Couldn't find a user with ID:${id} `);
   }
@@ -55,43 +43,30 @@ async function getByIdUser(id: string): Promise<User> {
 // /**
 //  * Function updates an entity in the Users table by specified identifier
 //  */
-async function updateByIdUser(id: string, entity: UserDto): Promise<User> { 
-
-  const postRepository = getManager().getRepository(User);
-
-  const user = await postRepository.findOne(id);
-
+async function updateByIdUser(id: string, dto: UserDto): Promise<User> { 
+  const repository = getManager().getRepository(User);
+  const user = await repository.findOne(id);
   if (!user) {
     throw new NOT_FOUND_ERROR(`Couldn't find a user with ID:${id} `);
   }
-
-  Object.assign(user,entity);
-
-  await postRepository.save(user);
-
+  Object.assign(user,dto);
+  await repository.save(user);
   return user;
 };
 
 // /**
 //  * Function deletes an entity from Users table by specified identifier
 //  */
-// const deleteById = async (id: string): Promise<void> => {
-//   await users.deleteById(id);
-//   await updateTasks({userId: id}, {userId: null});
-// }
 async function deleteByIdUser(id: string): Promise<void> { 
-
-  const postRepository = getManager().getRepository(User);
-
-  const user = await postRepository.findOne(id);
-
+  const repository = getManager().getRepository(User);
+  const user = await repository.findOne(id);
   if (!user) {
     throw new NOT_FOUND_ERROR(`Couldn't find a user with ID:${id} `);
   }
+  await repository.remove(user);
 
-  await postRepository.remove(user);
+  // await updateTasks({userId: id}, {userId: null});
 };
-
 
 export { 
   addUser,
