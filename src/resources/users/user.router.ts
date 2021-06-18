@@ -4,9 +4,9 @@
  */
 
 import { Router } from 'express';
-import { User } from './user.entity.js';
-import * as service from './user.service.js';
-import asyncWrapper from '../../utils/asyncWrapper.js';
+import { User } from './user.entity';
+import * as service from './user.service';
+import asyncWrapper from '../../utils/asyncWrapper';
 
 const router = Router();
 

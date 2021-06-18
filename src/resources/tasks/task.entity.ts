@@ -6,8 +6,8 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { v1 as uuid } from 'uuid';
 
-import { Board } from '../boards/board.entity.js';
-import { User } from '../users/user.entity.js';
+import { Board } from '../boards/board.entity';
+import { User } from '../users/user.entity';
 
 /**
  * Class to create a Task object

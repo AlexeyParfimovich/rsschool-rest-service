@@ -5,9 +5,9 @@
 
 import { getRepository } from "typeorm";
 
-import { UserDto } from "./user.dto.js";
-import { User } from "./user.entity.js";
-import { NOT_FOUND_ERROR } from '../../errors/httpError404.js';
+import { UserDto } from "./user.dto";
+import { User } from "./user.entity";
+import { NOT_FOUND_ERROR } from '../../errors/httpError404';
 
 // /**
 //  * Function adds an entity into the Users table

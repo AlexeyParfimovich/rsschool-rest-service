@@ -4,7 +4,7 @@
  */
 
 import { StatusCodes, getReasonPhrase} from 'http-status-codes';
-import { HTTP_ERROR } from './httpErrors.js';
+import { HTTP_ERROR } from './httpErrors';
 
 /**
  * Class of the http-error 404

@@ -3,12 +3,12 @@ import swaggerUI, { JsonObject } from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
 
-import userRouter from './resources/users/user.router.js';
-import taskRouter from './resources/tasks/task.router.js';
-import boardRouter from './resources/boards/board.router.js';
-import * as middleware from './errors/middleware.js';
+import userRouter from './resources/users/user.router';
+import taskRouter from './resources/tasks/task.router';
+import boardRouter from './resources/boards/board.router';
+import * as middleware from './errors/middleware';
 
-const __dirname = path.resolve();;
+__dirname = path.resolve();;
 const swaggerDocument: JsonObject = YAML.load(path.join(__dirname, './doc/api.yaml'));
 
 const app = express();

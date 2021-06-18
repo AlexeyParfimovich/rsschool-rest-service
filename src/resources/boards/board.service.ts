@@ -5,9 +5,9 @@
 
 import { getRepository } from "typeorm";
 
-import { BoardDto } from "./board.dto.js";
-import { Board } from "./board.entity.js";
-import { NOT_FOUND_ERROR } from "../../errors/httpError404.js";
+import { BoardDto } from "./board.dto";
+import { Board } from "./board.entity";
+import { NOT_FOUND_ERROR } from "../../errors/httpError404";
 
 /**
  * Function adds an entity into the Boards table

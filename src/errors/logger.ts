@@ -4,7 +4,7 @@
  */
 
 import winston from 'winston';
-import { NODE_ENV, LOGGING_SUPPRESS, LOG_ERROR_FILE, LOG_REQUEST_FILE } from '../common/config.js';
+import { NODE_ENV, LOGGING_SUPPRESS, LOG_ERROR_FILE, LOG_REQUEST_FILE } from '../common/config';
 
 const {createLogger, format, transports} = winston;
 

@@ -4,8 +4,8 @@
  */
 
 import { Router } from 'express';
-import * as service from './board.service.js';
-import asyncWrapper from '../../utils/asyncWrapper.js';
+import * as service from './board.service';
+import asyncWrapper from '../../utils/asyncWrapper';
 
 const router = Router();
 

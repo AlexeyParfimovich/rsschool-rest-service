@@ -6,10 +6,10 @@
 import { getRepository } from "typeorm";
 
 
-import { TaskDto } from "./task.dto.js";
-import { Task } from "./task.entity.js";
-import { Board } from "../boards/board.entity.js";
-import { NOT_FOUND_ERROR } from '../../errors/httpError404.js';
+import { TaskDto } from "./task.dto";
+import { Task } from "./task.entity";
+import { Board } from "../boards/board.entity";
+import { NOT_FOUND_ERROR } from '../../errors/httpError404';
 
 /**
  * Function adds an entity into the Tasks table

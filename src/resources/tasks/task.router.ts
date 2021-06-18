@@ -4,8 +4,8 @@
  */
 
 import { Router } from 'express';
-import * as service from './task.service.js';
-import asyncWrapper from '../../utils/asyncWrapper.js';
+import * as service from './task.service';
+import asyncWrapper from '../../utils/asyncWrapper';
 
 const router = Router({mergeParams: true}); // Use {mergeParams: true} to access parent route params
 

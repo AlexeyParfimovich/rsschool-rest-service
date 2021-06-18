@@ -6,35 +6,40 @@
     "jest": true,
     "node": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2021,
-    "ecmaFeatures": {
-      "impliedStrict": true
-    }
+    "project": "./tsconfig.json"
   },
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "settings": {
     "noInlineConfig": true,
     "import/resolver": {
-      "typescript": {},
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "tryExtensions": [".js", ".json", ".node", ".ts", ".d.ts"],
+        "extensions": [".js", ".ts"]
       }
     }
   },
   "extends": [
-    "airbnb-base",
     "eslint:recommended",
-    "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "airbnb-typescript/base",
     "prettier"
   ],
   "rules": {
-    "linebreak-style": "off",
     "import/extensions": "off",
-    "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off",
+    "linebreak-style": "off",
     "node/no-unsupported-features/es-syntax": "off",
-    "dot-notation": "off" // Switch it off due the error ts(4111) "Property comes from an index signature, so it must be accessed with []"
+    "no-underscore-dangle": "off",
+    "import/prefer-default-export": "off"
+    // "linebreak-style": "off",
+    // "import/extensions": "off",
+    // "no-underscore-dangle": "off",
+    // "import/prefer-default-export": "off",
+    // "node/no-unsupported-features/es-syntax": "off",
+    // "dot-notation": "off" // Switch it off due the error ts(4111) "Property comes from an index signature, so it must be accessed with []"
   }
 }

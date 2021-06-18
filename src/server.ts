@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import { createConnection } from 'typeorm';
 
-import { PORT, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD } from './common/config.js';
-import { logger } from './errors/logger.js';
-import { User } from "./resources/users/user.entity.js";
-import { Board } from "./resources/boards/board.entity.js";
-import { Task } from "./resources/tasks/task.entity.js";
-import app from './app.js';
+import { PORT, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD } from './common/config';
+import { logger } from './errors/logger';
+import { User } from "./resources/users/user.entity";
+import { Board } from "./resources/boards/board.entity";
+import { Task } from "./resources/tasks/task.entity";
+import app from './app';
 
 createConnection({
   type: "postgres",
