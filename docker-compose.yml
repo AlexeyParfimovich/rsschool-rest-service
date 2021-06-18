@@ -10,9 +10,6 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.node
-      # args: 
-      #   WORKDIR: ${WORKDIR}
-      #   PORT: ${PORT}
     ports:
       - ${PORT}:${PORT}
     environment: 
@@ -20,20 +17,11 @@ services:
       - PORT=${PORT}
     volumes: 
       - .:${WORKDIR}
-      # - ./logs:${WORKDIR}/logs
-      # - ./doc:${WORKDIR}/doc:ro
-      # - ./build:${WORKDIR}/build:ro
-      # - type: bind
-      #   source: ./.env
-      #   target: ${WORKDIR}.env
-      #   read_only: true
     networks: 
       - back
-      # - front
     depends_on:
       - postgres
     restart: on-failure
-    # command: npm run start
 
   postgres:
     container_name: postgres
@@ -61,8 +49,4 @@ networks:
   # Network to connect rest-service container to postgres container
   back:
     driver: bridge
-  
-    # Network to connect host to rest-service container
-  # front:
-  #   driver: bridge
   

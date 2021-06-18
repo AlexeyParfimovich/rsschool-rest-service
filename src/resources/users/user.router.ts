@@ -23,22 +23,22 @@ const router = Router();
  */
 router.route('/').get(asyncWrapper(async (_req, res) => {
   const users = await service.getAllUsers();
-  res.status(200).json(users.map(User.toRes));
+  res.status(200).json(users);
 }));
 
 // /**
 //  * Get user by ID
 //  */ 
 router.route('/:id').get(asyncWrapper(async (req, res) => {
-  const user = await service.getByIdUser(req.params['id'] || ''); // Костыль из-за конфликта присвоения типов (разобраться с преобразованием типов в TS)
-  res.status(200).json(User.toRes(user));
+  const user = await service.getByIdUser(req.params['id']);
+  res.status(200).json(user);
 }));
 
 // /**
 //  * Update user's data by ID
 //  */
 router.route('/:id').put(asyncWrapper(async (req, res) => {
-  const user = await service.updateByIdUser(req.params['id'] || '', req.body || {}); // Костыль из-за конфликта присвоения типов (некогда разбираться)
+  const user = await service.updateByIdUser(req.params['id'], req.body);
   res.status(200).json(User.toRes(user));
 }));
 
@@ -46,7 +46,7 @@ router.route('/:id').put(asyncWrapper(async (req, res) => {
 //  * Delete user by ID
 //  */
 router.route('/:id').delete(asyncWrapper(async (req, res) => {
-  await service.deleteByIdUser(req.params['id'] || ''); // Костыль из-за конфликта присвоения типов (TS - shit, MS - must die)
+  await service.deleteByIdUser(req.params['id']);
   res.sendStatus(200);
 }));
 

@@ -30,19 +30,5 @@ export class Board {
     this.id = id;
     this.title = title;
     this.columns = columns;
-  }
-
-  /**
-   * Static method to filter off some attributes
-   */
-  // static toRes(board: Board): Board {
-  //   return board;
-  // }
-
-  /**
-   * Static method to create, initiate and return new Board
-   */
-  // static fromReq(reqBody: Entity): Entity {
-  //   return { ...new Board(reqBody) };
-  // } 
+  };
 }

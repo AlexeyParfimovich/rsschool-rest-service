@@ -21,7 +21,6 @@ async function addTask(boardId = '', dto: TaskDto): Promise<Task> {
   const taskRep = getRepository(Task);
   const task = taskRep.create(dto);
   task.boardId = boardId;
-  // await taskRep.save(task);
   return taskRep.save(task);
 };
 
