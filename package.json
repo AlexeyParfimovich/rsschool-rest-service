@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tsc --noEmitOnError",
     "start": "nodemon --delay 5 --legacy-watch --exitcrash build/server.js",
+    "migration:generate": "typeorm migration:generate --name CreateTables",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",

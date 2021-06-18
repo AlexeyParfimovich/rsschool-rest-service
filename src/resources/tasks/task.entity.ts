@@ -3,7 +3,7 @@
  * @module taskModel
  */
 
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { v1 as uuid } from 'uuid';
 
 import { Board } from '../boards/board.entity.js';
@@ -18,56 +18,54 @@ export class Task {
   @PrimaryColumn()
   id: string; // Task identifier
 
-  @Column()
+  @Column('varchar')
   title: string; // Task title
 
-  @Column()
-  order: string; // Task order
+  @Column('int')
+  order: number; // Task order
 
-  @Column()
+  @Column('varchar')
   description: string; // Task description 
 
-  @ManyToOne(_type => User, user => user.id)
-  user: string | null; // User identifier
+  @Column('varchar', { nullable: true })
+  userId: string | null;
 
-  @ManyToOne(_type => Board, board => board.id)
-  board: string | null; // Board identifier
+  @ManyToOne(() => User, (user: User) => user.id, {
+    onDelete: "SET NULL",
+    nullable: true
+  })
+  @JoinColumn({ name: 'userId' })
+  user!: string | null; // User identifier
 
-  @Column('varchar', {length: 50, nullable: true})
-  column: string | null; // Column identifier
+  @Column('varchar', { nullable: true })
+  boardId: string | null;
+
+  @ManyToOne(() => Board, (board: Board) => board.id, {
+    onDelete: "CASCADE",
+    nullable : true
+  })
+  @JoinColumn({ name: 'boardId' })
+  board!: string | null; // Board identifier
+
+  @Column('varchar', { nullable: true })
+  columnId: string | null; // Column identifier
 
   constructor({
     id = uuid(),
-    title = 'Default task',
-    order = '1',
+    title = 'none',
+    order = 0,
     description = 'none',
-    user = null,
-    board = null,
-    column = null
+    userId = null,
+    boardId = null,
+    columnId = null
   }: Partial<Task> = {}) {
     
     this.id = id;
     this.title = title;
     this.order = order;
     this.description = description;
-    this.user = user;
-    this.board = board;
-    this.column = column
+    this.userId = userId;
+    this.boardId = boardId;
+    this.columnId = columnId;
   };
-
-  /**
-   * Static method to filter off some attributes
-   */
-  // static toRes(task: Entity): Entity {
-  //   return task;
-  // }
-
-  // /**
-  //  * Static method to create, initiate and return new Task
-  //  */
-  // static fromReq(boardId: string, reqBody: Entity): Entity {
-  //   const task = new Task(reqBody);
-  //   task.boardId = boardId;
-  //   return { ...task };
-  // }
 }

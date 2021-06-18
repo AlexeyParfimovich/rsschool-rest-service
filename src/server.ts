@@ -24,6 +24,8 @@ createConnection({
 
   logger.log('info', `TypeORM connected to ${connection.options.type} database on port ${POSTGRES_PORT}`)
 
+  // await connection.runMigrations();
+
   app.listen(PORT, () => {
     logger.log('info',`Application is running on http://localhost:${PORT}`);
   });

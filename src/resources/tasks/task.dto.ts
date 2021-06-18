@@ -1,13 +1,16 @@
+// import { Board } from "../boards/board.entity";
+// import { User } from "../users/user.entity";
+
 export class TaskDto {
   readonly title!: string; // Task title
 
-  readonly order!: string; // Task order
+  readonly order!: number; // Task order
 
   readonly description!: string; // Task description 
 
-  readonly user!: string | null; // User identifier
+  readonly userId!: string | null; // User identifier
 
-  readonly board!: string | null; // Board identifier
+  readonly boardId!: string | null; // Board identifier
 
-  readonly column!: string | null; // Column identifier
+  readonly columnId!: string | null; // Column identifier
 }

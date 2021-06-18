@@ -13,7 +13,7 @@ const router = Router({mergeParams: true}); // Use {mergeParams: true} to access
  * Create a new task on a given board
  */
  router.route('/').post(asyncWrapper(async (req, res) => {
-  const task = await service.addTask(req.params['ownerId'] || '', req.body);
+  const task = await service.addTask(req.params['boardId'], req.body);
   res.status(201).json(task);
 }));
 
@@ -21,7 +21,7 @@ const router = Router({mergeParams: true}); // Use {mergeParams: true} to access
  * Get all tasks from a given board
  */
 router.route('/').get(asyncWrapper(async (req, res) => {
-  const tasks = await service.getAllTasks(req.params['ownerId'] || '');
+  const tasks = await service.getAllTasks(req.params['boardId']);
   res.status(200).json(tasks);
 }));
 
@@ -29,7 +29,7 @@ router.route('/').get(asyncWrapper(async (req, res) => {
  * Get a task by ID, from a given board
  */
 router.route('/:id').get(asyncWrapper(async (req, res) => {
-  const task = await service.getByIdTask(req.params['ownerId'] || '', req.params['id'] || '');
+  const task = await service.getByIdTask(req.params['boardId'], req.params['id']);
   res.status(200).json(task);
 }));
 
@@ -37,7 +37,7 @@ router.route('/:id').get(asyncWrapper(async (req, res) => {
  * Update a task by ID, on a given board
  */
 router.route('/:id').put(asyncWrapper(async (req, res) => {
-  const task = await service.updateByIdTask(req.params['ownerId'] || '', req.params['id'] || '', req.body);
+  const task = await service.updateByIdTask(req.params['boardId'], req.params['id'], req.body);
   res.status(200).json(task);
 }));
 
@@ -45,7 +45,7 @@ router.route('/:id').put(asyncWrapper(async (req, res) => {
  * Delete a task by ID on a given board
  */
 router.route('/:id').delete(asyncWrapper(async (req, res) => {
-  await service.deleteByIdTask(req.params['ownerId'] || '', req.params['id'] || '');
+  await service.deleteByIdTask(req.params['boardId'], req.params['id']);
   res.sendStatus(200);
 }));
 
