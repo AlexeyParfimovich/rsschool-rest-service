@@ -26,7 +26,6 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb-typescript/base",
     "prettier"
   ],
   "rules": {
@@ -35,11 +34,5 @@
     "node/no-unsupported-features/es-syntax": "off",
     "no-underscore-dangle": "off",
     "import/prefer-default-export": "off"
-    // "linebreak-style": "off",
-    // "import/extensions": "off",
-    // "no-underscore-dangle": "off",
-    // "import/prefer-default-export": "off",
-    // "node/no-unsupported-features/es-syntax": "off",
-    // "dot-notation": "off" // Switch it off due the error ts(4111) "Property comes from an index signature, so it must be accessed with []"
   }
 }

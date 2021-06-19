@@ -8,8 +8,8 @@ import taskRouter from './resources/tasks/task.router';
 import boardRouter from './resources/boards/board.router';
 import * as middleware from './errors/middleware';
 
-__dirname = path.resolve();;
-const swaggerDocument: JsonObject = YAML.load(path.join(__dirname, './doc/api.yaml'));
+// __dirname = path.resolve();;
+const swaggerDocument: JsonObject = YAML.load(path.join(path.resolve(), './doc/api.yaml'));
 
 const app = express();
 
