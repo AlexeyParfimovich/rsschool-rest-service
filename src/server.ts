@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { createConnection } from 'typeorm';
 
-import { PORT, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD } from './common/config';
+import * as cfg from './common/config';
 import { logger } from './errors/logger';
 import { User } from "./resources/users/user.entity";
 import { Board } from "./resources/boards/board.entity";
@@ -10,24 +10,24 @@ import app from './app';
 
 createConnection({
   type: "postgres",
-  host: POSTGRES_HOST,
-  port: POSTGRES_PORT,
-  database: POSTGRES_DB,
-  username: POSTGRES_USER,
-  password: POSTGRES_PASSWORD,
+  host: cfg.POSTGRES_HOST,
+  port: cfg.POSTGRES_PORT,
+  database: cfg.POSTGRES_DB,
+  username: cfg.POSTGRES_USER,
+  password: cfg.POSTGRES_PASSWORD,
   entities: [
       User, Board, Task,
   ],
-  synchronize: true,
-  logging: false
+  synchronize: cfg.POSTGRES_SYNCHRONIZE,
+  logging: cfg.POSTGRES_LOGGING
 }).then(async connection => {
 
-  logger.log('info', `TypeORM connected to ${connection.options.type} database on port ${POSTGRES_PORT}`)
+  logger.log('info', `TypeORM connected to ${connection.options.type} database on port ${cfg.POSTGRES_PORT}`)
 
   // await connection.runMigrations();
 
-  app.listen(PORT, () => {
-    logger.log('info',`Application is running on http://localhost:${PORT}`);
+  app.listen(cfg.PORT, () => {
+    logger.log('info',`Application is running on http://localhost:${cfg.PORT}`);
   });
 
 }).catch(error => logger.log('error', `TypeORM connection: ${error}`));

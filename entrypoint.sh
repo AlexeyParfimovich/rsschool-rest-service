@@ -1,18 +1,19 @@
 #!/bin/sh
 
-set -e
+set -o errexit
 
-host="postgres"
-port="5432"
 cmd="$@"
 
->&2 echo "!!!!!!!! Check postgres for available !!!!!!!!"
+>&2 echo -e "\n!!! Check postgres server for available !!!"
 
-until curl http://"$host":"$port"; do
-  >&2 echo "Postgres is unavailable - sleeping"
+until npm run typeorm query "SELECT COUNT(*) as Number_of_tables FROM information_schema.tables WHERE table_schema = current_schema()"
+do
+  >&2 echo -e "\n!!! Postgres is unavailable - waiting !!!"
   sleep 1
 done
 
->&2 echo "Postgres is up - executing command"
+>&2 echo -e "\n!!! Postgres is up - checking database migration !!!"
+
+npm run typeorm migration:run
 
 exec $cmd

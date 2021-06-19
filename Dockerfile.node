@@ -2,17 +2,18 @@
 
 FROM node:14-alpine
 
-# Create application folder
+# Setup application folder
 WORKDIR ${WORKDIR:-/usr/app}
 
-# Copy dependencies config files into the apps folder
-COPY package*.json entrypoint.sh ./
+# Copy dependencies config files into the workdir
+COPY package*.json ./
 
-# Install dependencies
-RUN apk update && apk add --upgrade curl 
-RUN npm ci
+# Install dependencies into the wirkdir
+RUN npm install
 
 EXPOSE ${PORT:-4000}
 
-# ENTRYPOINT [ "sh", "entrypoint.sh" ]
+# Run script for checking db connection and running migration
+ENTRYPOINT [ "sh", "entrypoint.sh" ]
+
 CMD ["npm", "run", "start"]
