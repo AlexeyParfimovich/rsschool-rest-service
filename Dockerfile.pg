@@ -1,0 +1,8 @@
+# escape=`
+
+FROM postgres:alpine
+
+# Update vulnerabilities
+RUN apk update && apk upgrade libxml2 
+
+# EXPOSE ${POSTGRES_PORT:-5432}

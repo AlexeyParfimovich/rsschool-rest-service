@@ -1,0 +1,21 @@
+# escape=`
+
+FROM node:14-alpine
+
+# ARG WORKDIR
+# ARG PORT
+
+# Create application folder
+WORKDIR ${WORKDIR:-/usr/app}
+
+# Copy dependencies config files into the apps folder
+COPY package*.json entrypoint.sh ./
+
+# Install dependencies
+RUN apk update && apk add --upgrade curl 
+RUN npm ci
+
+EXPOSE ${PORT:-4000}
+
+# ENTRYPOINT [ "sh", "entrypoint.sh" ]
+CMD ["npm", "run", "start"]
