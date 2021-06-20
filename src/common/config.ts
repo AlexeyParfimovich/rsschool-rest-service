@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-// __dirname = path.resolve();
 dotenv.config({
   path: path.join(path.resolve(), './.env')
 });
