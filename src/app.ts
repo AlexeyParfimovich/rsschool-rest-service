@@ -6,7 +6,12 @@ import YAML from 'yamljs';
 import userRouter from './resources/users/user.router';
 import taskRouter from './resources/tasks/task.router';
 import boardRouter from './resources/boards/board.router';
-import * as middleware from './errors/middleware';
+import { 
+  errorHandler,
+  httpRequestLogger,
+  uncaughtExceptionLogger,
+  unhandledRejectionLogger } from './errors/handlers';
+  
 
 const swaggerDocument: JsonObject = YAML.load(path.join(path.resolve(), './doc/api.yaml'));
 
@@ -16,7 +21,7 @@ app.use(express.urlencoded({extended: false}));
 
 app.use(express.json());
 
-app.use(middleware.httpRequestLogger); // Add middleware logging http requests
+app.use(httpRequestLogger); // Add middleware logging http requests
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
@@ -32,11 +37,11 @@ app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
 
-app.use(middleware.errorHandler); // Add middleware handling and logging unhandled errors
+app.use(errorHandler); // Add middleware handling and logging unhandled errors
 
-process.on('unhandledRejection', middleware.unhandledRejectionLogger);
+process.on('unhandledRejection', unhandledRejectionLogger);
 
-process.on('uncaughtException', middleware.uncaughtExceptionLogger);
+process.on('uncaughtException', uncaughtExceptionLogger);
 
 // Testing unhandled rejection catcher
 // Promise.reject(new Error('Testing unhandled rejection catching'));

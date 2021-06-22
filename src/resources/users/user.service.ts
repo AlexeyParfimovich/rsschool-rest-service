@@ -22,15 +22,14 @@ async function addUser(dto: UserDto): Promise<User> {
 //  * Function gets all entities from the Users table
 //  */
 async function getAllUsers(): Promise<User[]> {
-  return getRepository(User).find({ 
-    select: ['id', 'login', 'name']});
+  return getRepository(User).find();
 };
 
 // /**
 //  * Function gets an entity from the Users table by specified identifier
 //  */
 async function getByIdUser(id = ''): Promise<User> {
-  const user = await getRepository(User).findOne(id, {select: ['id', 'login', 'name'] });
+  const user = await getRepository(User).findOne(id);
   if (!user) {
     throw new NOT_FOUND_ERROR(`Couldn't find user with ID:${id} `);
   }
