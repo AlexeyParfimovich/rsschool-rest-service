@@ -44,19 +44,12 @@ You can open in your browser OpenAPI documentation by typing http://localhost:40
 
 After application running open new terminal and enter:  
 
-To run all tests
+To run tests
 
 ```
-npm run test
+npm run test:auth
 ```
 
-To run only one of all test suites (users, boards or tasks)
-
-```
-npm run test <suite name>
-```  
-  
-  
 ### Auto-fix and format
 
 ```
