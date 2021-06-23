@@ -12,6 +12,7 @@ import {
   httpRequestLogger,
   uncaughtExceptionLogger,
   unhandledRejectionLogger } from './errors/handlers';
+import { validateSession } from './utils/validateSession';
   
 
 const swaggerDocument: JsonObject = YAML.load(path.join(path.resolve(), './doc/api.yaml'));
@@ -36,9 +37,7 @@ app.use('/', (req, res, next) => {
 
 app.use('/login', loginRouter);
 
-/**
- * TODO: implement middleware function to validate session
- */
+app.use(validateSession); // Add middleware validate session function
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);

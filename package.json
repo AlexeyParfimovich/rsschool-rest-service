@@ -9,7 +9,7 @@
   "main": "src/server.ts",
   "scripts": {
     "build": "tsc --noEmitOnError",
-    "start": "nodemon --delay 1 --legacy-watch --exitcrash src/server.ts",
+    "start": "nodemon --delay 5 --legacy-watch --exitcrash src/server.ts",
     "start:dev": "ts-node src/server.ts",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "lint": "eslint --ext .js,.ts --fix src/",

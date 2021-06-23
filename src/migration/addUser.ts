@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 import { User } from "../resources/users/user.entity";
 import { hashSync } from 'bcryptjs';
 
-const admin = new User({ name: 'System user', login: 'Admin', password: hashSync('Admin', 10)});
+const admin = new User({ name: 'System user', login: 'admin', password: hashSync('admin', 10)});
 
 export class AddUser1624435994704 implements MigrationInterface {
     name = 'AddUser1624435994704'
