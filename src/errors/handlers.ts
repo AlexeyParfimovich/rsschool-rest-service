@@ -7,7 +7,7 @@ import { StatusCodes, getReasonPhrase} from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 import { finished } from 'stream';
 
-import { HTTP_ERROR } from './httpErrors';
+import { HTTP_ERROR } from './httpError';
 import { logger } from './logger';
 
 /**

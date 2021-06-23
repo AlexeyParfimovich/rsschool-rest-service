@@ -3,6 +3,7 @@ import swaggerUI, { JsonObject } from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
 
+import loginRouter from './resources/users/login.router';
 import userRouter from './resources/users/user.router';
 import taskRouter from './resources/tasks/task.router';
 import boardRouter from './resources/boards/board.router';
@@ -32,6 +33,12 @@ app.use('/', (req, res, next) => {
   }
   next();
 });
+
+app.use('/login', loginRouter);
+
+/**
+ * TODO: implement middleware function to validate session
+ */
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
