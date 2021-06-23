@@ -2,7 +2,8 @@ import * as cfg from './common/config';
 import { User } from "./resources/users/user.entity";
 import { Task } from "./resources/tasks/task.entity";
 import { Board } from "./resources/boards/board.entity";
-import { CreateTables } from "./migration/CreateTables";
+import { CreateTables } from "./migration/createTables";
+import { AddUser } from "./migration/addUser";
 
 export = {
    type: "postgres",
@@ -15,7 +16,7 @@ export = {
      User, Board, Task,
    ],
    migrations: [
-     CreateTables,
+     CreateTables, AddUser,
    ],
    logging: cfg.POSTGRES_LOGGING,
    synchronize: cfg.POSTGRES_SYNCHRONIZE,

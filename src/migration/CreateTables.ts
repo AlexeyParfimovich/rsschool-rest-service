@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class CreateTables1624078031941 implements MigrationInterface {
     name = 'CreateTables1624078031941'
