@@ -23,7 +23,7 @@ function validateSession(req: Request, res: Response, next: NextFunction): void 
                     error : err
                 }))
             } else {
-                res.status(StatusCodes.BAD_REQUEST).send({ error: "not authorized" });
+                res.status(StatusCodes.UNAUTHORIZED).send({ error: "not authorized" });
             }
         });
     }
