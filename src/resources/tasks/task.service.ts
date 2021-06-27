@@ -3,45 +3,72 @@
  * @module taskService
  */
 
-import * as tasks from './task.repository.js';
-import { Table, Entity } from '../../utils/inMemoryDb.js';
+import { getRepository } from "typeorm";
 
-/**
- * Function gets all entities from Tasks table for specified Board
- */
-const getAll = async (boardId: string): Promise<Table> => tasks.getAllFromBoard(boardId);
 
-/**
- * Function gets an entity from Task table for specified Board, by ID
- */
-const getById = async (boardId: string, id: string): Promise<Entity> => tasks.getFromBoardById(boardId, id);
+import { TaskDto } from "./task.dto";
+import { Task } from "./task.entity";
+import { Board } from "../boards/board.entity";
+import { NOT_FOUND_ERROR } from '../../errors/httpError404';
 
 /**
  * Function adds an entity into the Tasks table
  */
-const addEntity = async (entity: Entity): Promise<Entity> => tasks.addEntity(entity);
+async function addTask(boardId = '', dto: TaskDto): Promise<Task> { 
+  if(! await getRepository(Board).findOne(boardId)){
+    throw new NOT_FOUND_ERROR(`Board with ID:${boardId} doesn't exist `);
+  }
+  const taskRep = getRepository(Task);
+  const task = taskRep.create(dto);
+  task.boardId = boardId;
+  return taskRep.save(task);
+};
+
+/**
+ * Function gets all entities from Tasks table for specified Board
+ */
+async function getAllTasks(boardId = ''): Promise<Task[]> {
+  return getRepository(Task).find({ 
+    select: [
+      'id', 'title', 'order', 'description', 
+      'userId', 'boardId', 'columnId'], 
+    where: { 'boardId' : boardId }});
+};
+
+/**
+ * Function gets an entity from Task table for specified Board, by ID
+ */
+async function getByIdTask(boardId = '', taskId = ''): Promise<Task> {
+  const task = await getRepository(Task).findOne({'id': taskId, 'boardId': boardId});
+  if (!task) {
+    throw new NOT_FOUND_ERROR(`Couldn't find task with ID:${taskId} for the board ${boardId} `);
+  }
+  return task;
+};
 
 /**
  * Function updates an entity in the Tasks table by specified identifier
  */
-const updateById = async (_boardId: string, id: string, entity: Entity): Promise<Entity> => tasks.updateById(id, entity)
+ async function updateByIdTask(boardId = '', taskId = '', dto: TaskDto): Promise<Task> { 
+  const taskRep = getRepository(Task);
+  const task = await taskRep.findOne({'id': taskId, 'boardId': boardId});
+  if (!task) {
+    throw new NOT_FOUND_ERROR(`Couldn't find task with ID:${taskId} for the board ${boardId} `);
+  }
+  return taskRep.save({ ...task, ...dto });
+};
 
 /**
  * Function deletes an entity from Tasks table by specified identifier
  */
-const deleteById = async (_boardId: string, id: string): Promise<void> => {
-  // await boardService.getById(boardId);
-  await tasks.deleteById(id);
+async function deleteByIdTask(boardId = '', taskId = ''): Promise<void> { 
+  await getRepository(Task).delete({ 'boardId': boardId, 'id': taskId });
 };
 
-/**
- * Function deletes all entity from Tasks table for specified Board
- */
-const deleteByBoard = async (boardId: string): Promise<void> => tasks.deleteAllFromBoard(boardId);
-
-/**
- * Function to update all Tasks matched by specified pattern
- */
-const updateByMatch = (pattern: Entity, update: Entity): Promise<void> => tasks.updateByMatch(pattern, update);
-
-export { getAll, getById, addEntity, updateById, updateByMatch, deleteById, deleteByBoard };
+export { 
+  addTask, 
+  getAllTasks, 
+  getByIdTask, 
+  updateByIdTask, 
+  deleteByIdTask, 
+};

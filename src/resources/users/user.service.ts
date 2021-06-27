@@ -3,42 +3,63 @@
  * @module userService
  */
 
-import * as users from './user.repository.js';
-import {Table, Entity } from '../../utils/inMemoryDb.js';
-import { updateByMatch as updateTasks } from '../tasks/task.service.js';
+import { getRepository } from "typeorm";
 
-/**
- * Function gets all entities from the Users table
- */
-const getAll = async (): Promise<Table> => users.getAll();
+import { UserDto } from "./user.dto";
+import { User } from "./user.entity";
+import { NOT_FOUND_ERROR } from '../../errors/httpError404';
 
-/**
- * Function gets an entity from the Users table by specified identifier
- */
-const getById = async (id: string): Promise<Entity> => users.getById(id);
+// /**
+//  * Function adds an entity into the Users table
+//  */
+async function addUser(dto: UserDto): Promise<User> { 
+  const userRep = getRepository(User);
+  const user = userRep.create(dto);
+  return userRep.save(user);
+};
 
-/**
- * Function deletes an entity from Users table by specified identifier
- */
-const deleteById = async (id: string): Promise<void> => {
-  await users.deleteById(id);
-  await updateTasks({userId: id}, {userId: null});
-}
+// /**
+//  * Function gets all entities from the Users table
+//  */
+async function getAllUsers(): Promise<User[]> {
+  return getRepository(User).find({ 
+    select: ['id', 'login', 'name']});
+};
 
-/**
- * Function adds an entity into the Users table
- */
-const addEntity = async (entity: Entity): Promise<Entity> => users.addEntity(entity);
+// /**
+//  * Function gets an entity from the Users table by specified identifier
+//  */
+async function getByIdUser(id = ''): Promise<User> {
+  const user = await getRepository(User).findOne(id, {select: ['id', 'login', 'name'] });
+  if (!user) {
+    throw new NOT_FOUND_ERROR(`Couldn't find user with ID:${id} `);
+  }
+  return user;
+};
 
-/**
- * Function updates an entity in the Users table by specified identifier
- */
-const updateById = async (id: string, entity: Entity): Promise<Entity> => users.updateById(id, entity);
+// /**
+//  * Function updates an entity in the Users table by specified identifier
+//  */
+async function updateByIdUser(id = '', dto: UserDto): Promise<User> { 
+  const userRep = getRepository(User);
+  const user = await userRep.findOne(id);
+  if (!user) {
+    throw new NOT_FOUND_ERROR(`Couldn't find user with ID:${id} `);
+  }
+  return userRep.save({...user, ...dto});
+};
+
+// /**
+//  * Function deletes an entity from Users table by specified identifier
+//  */
+async function deleteByIdUser(id = ''): Promise<void> { 
+  await getRepository(User).delete({ 'id': id });
+};
 
 export { 
-  getAll,
-  getById,
-  addEntity,
-  updateById,
-  deleteById 
+  addUser,
+  getAllUsers,
+  getByIdUser,
+  updateByIdUser,
+  deleteByIdUser,
 };

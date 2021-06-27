@@ -3,18 +3,12 @@ import swaggerUI, { JsonObject } from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
 
-import db from './db.js';
-import userRouter from './resources/users/user.router.js';
-import taskRouter from './resources/tasks/task.router.js';
-import boardRouter from './resources/boards/board.router.js';
-import * as middleware from './errors/middleware.js';
-import { logger } from './errors/logger.js';
+import userRouter from './resources/users/user.router';
+import taskRouter from './resources/tasks/task.router';
+import boardRouter from './resources/boards/board.router';
+import * as middleware from './errors/middleware';
 
-const __dirname = path.resolve();;
-const swaggerDocument: JsonObject = YAML.load(path.join(__dirname, './doc/api.yaml'));
-
-db.sync()
- .catch(err => logger.log('error', `DB error: ${err}`));
+const swaggerDocument: JsonObject = YAML.load(path.join(path.resolve(), './doc/api.yaml'));
 
 const app = express();
 
@@ -36,7 +30,7 @@ app.use('/', (req, res, next) => {
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
-app.use('/boards/:ownerId/tasks', taskRouter);
+app.use('/boards/:boardId/tasks', taskRouter);
 
 app.use(middleware.errorHandler); // Add middleware handling and logging unhandled errors
 

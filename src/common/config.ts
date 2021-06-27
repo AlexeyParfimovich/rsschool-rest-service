@@ -1,10 +1,8 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-const __dirname = path.resolve();
-
 dotenv.config({
-  path: path.join(__dirname, './.env')
+  path: path.join(path.resolve(), './.env')
 });
 
 const NODE_ENV = process.env['NODE_ENV'] ?? 'development';
@@ -20,6 +18,8 @@ const POSTGRES_PORT = Number(process.env['POSTGRES_PORT']) ?? 5432;
 const POSTGRES_DB = process.env['POSTGRES_DB'] ?? 'postgres';
 const POSTGRES_USER = process.env['POSTGRES_USER'] ?? 'postgres';
 const POSTGRES_PASSWORD = process.env['POSTGRES_PASSWORD'] ?? 'postgres';
+const POSTGRES_SYNCHRONIZE = process.env['POSTGRES_SYNCHRONIZE'] === 'true';
+const POSTGRES_LOGGING = process.env['POSTGRES_LOGGING'] === 'true';
 
 const { JWT_SECRET_KEY, DB_CONNECTION } = process.env;
 
@@ -37,5 +37,7 @@ export {
   POSTGRES_PORT,
   POSTGRES_DB,
   POSTGRES_USER,
-  POSTGRES_PASSWORD
+  POSTGRES_PASSWORD,
+  POSTGRES_SYNCHRONIZE,
+  POSTGRES_LOGGING
 };

@@ -3,42 +3,62 @@
  * @module boardService
  */
 
-import * as boards from './board.repository.js';
-import {Table, Entity } from '../../utils/inMemoryDb.js';
-import {deleteByBoard as deleteAllTasks } from '../tasks/task.service.js';
+import { getRepository } from "typeorm";
 
-/**
- * Function gets all entities from the Boards table
- */
-const getAll = async (): Promise<Table> => boards.getAll();
-
-/**
- * Function gets an entity from the Boards table by specified identifier
- */
-const getById = async (id: string): Promise<Entity> => boards.getById(id);
-
-/**
- * Function deletes an entity from Boards table by specified identifier
- */
-const deleteById = async (id: string): Promise<void> => {
-  await boards.deleteById(id);
-  await deleteAllTasks(id);
-};
+import { BoardDto } from "./board.dto";
+import { Board } from "./board.entity";
+import { NOT_FOUND_ERROR } from "../../errors/httpError404";
 
 /**
  * Function adds an entity into the Boards table
  */
-const addEntity = async (entity: Entity): Promise<Entity> => boards.addEntity(entity);
+async function addBoard(dto: BoardDto): Promise<Board> {
+  const boardRep = getRepository(Board);
+  const board = boardRep.create(dto);
+  return boardRep.save(board);
+};
+ 
+/**
+ * Function gets all entities from the Boards table
+ */
+async function getAllBoards(): Promise<Board[]> {
+  return getRepository(Board).find();
+};
+
+/**
+ * Function gets an entity from the Boards table by specified identifier
+ */
+async function getByIdBoard(id = ''): Promise<Board> {
+  const board = await getRepository(Board).findOne(id);
+  if (!board) {
+    throw new NOT_FOUND_ERROR(`Couldn't find a board with ID:${id} `);
+  }
+  return board;
+};
 
 /**
  * Function updates an entity in the Boards table by specified identifier
  */
-const updateById = (id: string, entity: Entity): Promise<Entity> => boards.updateById(id, entity);
+async function updateByIdBoard(id = '', dto: BoardDto): Promise<Board> {
+  const boardRep = getRepository(Board);
+  const board = await boardRep.findOne(id);
+  if (!board) {
+    throw new NOT_FOUND_ERROR(`Couldn't find a board with ID:${id} `);
+  }
+  return boardRep.save({...board, ...dto});
+};
+
+/**
+ * Function deletes an entity from Boards table by specified identifier
+ */
+ async function deleteByIdBoard(id = ''): Promise<void> {
+  await getRepository(Board).delete({ 'id': id });
+};
 
 export { 
-  getAll,
-  getById,
-  addEntity,
-  updateById,
-  deleteById 
+  addBoard,
+  getAllBoards,
+  getByIdBoard,
+  updateByIdBoard,
+  deleteByIdBoard 
 };
