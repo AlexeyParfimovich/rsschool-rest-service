@@ -16,6 +16,7 @@
     "jsonb",
     "modules",
     "myapp",
+    "nestjs",
     "node",
     "ormconfig",
     "postgres",

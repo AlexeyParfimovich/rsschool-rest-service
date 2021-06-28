@@ -11,6 +11,9 @@
     "build": "tsc --noEmitOnError",
     "start": "nodemon --delay 5 --legacy-watch --exitcrash src/server.ts",
     "start:dev": "ts-node src/server.ts",
+    "nest:build": "nest build",
+    "nest:start": "nest start",
+    "nest:start:dev": "nest start --watch",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
@@ -47,6 +50,11 @@
     ]
   },
   "dependencies": {
+    "@nestjs/common": "^7.6.18",
+    "@nestjs/config": "^0.6.3",
+    "@nestjs/core": "^7.6.18",
+    "@nestjs/platform-express": "^7.6.18",
+    "@nestjs/typeorm": "^7.1.5",
     "bcryptjs": "^2.4.3",
     "cross-env": "7.0.3",
     "dotenv": "9.0.0",
@@ -54,7 +62,9 @@
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.6.7",
     "sequelize": "^6.6.2",
     "swagger-ui-express": "4.1.6",
     "typeorm": "^0.2.34",
@@ -63,6 +73,7 @@
     "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@nestjs/cli": "^7.6.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/es6-shim": "^0.31.41",
     "@types/express": "^4.17.12",
