@@ -19,6 +19,7 @@ const POSTGRES_DB = process.env['POSTGRES_DB'] ?? 'postgres';
 const POSTGRES_USER = process.env['POSTGRES_USER'] ?? 'postgres';
 const POSTGRES_PASSWORD = process.env['POSTGRES_PASSWORD'] ?? 'postgres';
 const POSTGRES_SYNCHRONIZE = process.env['POSTGRES_SYNCHRONIZE'] === 'true';
+const POSTGRES_MIGRATION_RUN = process.env['POSTGRES_MIGRATION_RUN'] === 'true';
 const POSTGRES_LOGGING = process.env['POSTGRES_LOGGING'] === 'true';
 
 const { JWT_SECRET_KEY, DB_CONNECTION } = process.env;
@@ -39,5 +40,6 @@ export {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_SYNCHRONIZE,
+  POSTGRES_MIGRATION_RUN,
   POSTGRES_LOGGING
 };

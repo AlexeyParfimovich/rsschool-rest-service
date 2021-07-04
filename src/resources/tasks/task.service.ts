@@ -4,19 +4,19 @@
  */
 
 import { getRepository } from "typeorm";
-
+import { StatusCodes } from 'http-status-codes';
 
 import { TaskDto } from "./task.dto";
 import { Task } from "./task.entity";
 import { Board } from "../boards/board.entity";
-import { NOT_FOUND_ERROR } from '../../errors/httpError404';
+import { HTTP_ERROR } from '../../errors/httpError';
 
 /**
  * Function adds an entity into the Tasks table
  */
 async function addTask(boardId = '', dto: TaskDto): Promise<Task> { 
   if(! await getRepository(Board).findOne(boardId)){
-    throw new NOT_FOUND_ERROR(`Board with ID:${boardId} doesn't exist `);
+    throw new HTTP_ERROR( StatusCodes.NOT_FOUND ,`Board with ID:${boardId} doesn't exist `);
   }
   const taskRep = getRepository(Task);
   const task = taskRep.create(dto);
@@ -41,7 +41,7 @@ async function getAllTasks(boardId = ''): Promise<Task[]> {
 async function getByIdTask(boardId = '', taskId = ''): Promise<Task> {
   const task = await getRepository(Task).findOne({'id': taskId, 'boardId': boardId});
   if (!task) {
-    throw new NOT_FOUND_ERROR(`Couldn't find task with ID:${taskId} for the board ${boardId} `);
+    throw new HTTP_ERROR( StatusCodes.NOT_FOUND ,`Couldn't find task with ID:${taskId} for the board ${boardId} `);
   }
   return task;
 };
@@ -53,7 +53,7 @@ async function getByIdTask(boardId = '', taskId = ''): Promise<Task> {
   const taskRep = getRepository(Task);
   const task = await taskRep.findOne({'id': taskId, 'boardId': boardId});
   if (!task) {
-    throw new NOT_FOUND_ERROR(`Couldn't find task with ID:${taskId} for the board ${boardId} `);
+    throw new HTTP_ERROR( StatusCodes.NOT_FOUND ,`Couldn't find task with ID:${taskId} for the board ${boardId} `);
   }
   return taskRep.save({ ...task, ...dto });
 };

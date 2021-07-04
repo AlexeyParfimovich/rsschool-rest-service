@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateTablesInDataBase1624078031941 implements MigrationInterface {
-    name = 'CreateTablesInDataBase1624078031941'
+export class CreateTables1624078031941 implements MigrationInterface {
+    name = 'CreateTables1624078031941'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "board" ("id" character varying NOT NULL, "title" character varying NOT NULL, "columns" jsonb, CONSTRAINT "PK_865a0f2e22c140d261b1df80eb1" PRIMARY KEY ("id"))`);
@@ -20,3 +20,5 @@ export class CreateTablesInDataBase1624078031941 implements MigrationInterface {
     }
 
 }
+
+export { CreateTables1624078031941 as CreateTables}

@@ -6,7 +6,7 @@
 import { Router } from 'express';
 import { User } from './user.entity';
 import * as service from './user.service';
-import asyncWrapper from '../../utils/asyncWrapper';
+import { asyncWrapper } from '../../utils/asyncWrapper';
 
 const router = Router();
 
@@ -23,7 +23,7 @@ const router = Router();
  */
 router.route('/').get(asyncWrapper(async (_req, res) => {
   const users = await service.getAllUsers();
-  res.status(200).json(users);
+  res.status(200).json(users.map(User.toRes));
 }));
 
 // /**
@@ -31,7 +31,7 @@ router.route('/').get(asyncWrapper(async (_req, res) => {
 //  */ 
 router.route('/:id').get(asyncWrapper(async (req, res) => {
   const user = await service.getByIdUser(req.params['id']);
-  res.status(200).json(user);
+  res.status(200).json(User.toRes(user));
 }));
 
 // /**

@@ -17,6 +17,7 @@
     "modules",
     "myapp",
     "node",
+    "ormconfig",
     "postgres",
     "printf",
     "resurse",

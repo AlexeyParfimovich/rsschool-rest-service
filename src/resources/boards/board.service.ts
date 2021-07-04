@@ -4,10 +4,11 @@
  */
 
 import { getRepository } from "typeorm";
+import { StatusCodes } from 'http-status-codes';
 
 import { BoardDto } from "./board.dto";
 import { Board } from "./board.entity";
-import { NOT_FOUND_ERROR } from "../../errors/httpError404";
+import { HTTP_ERROR } from "../../errors/httpError";
 
 /**
  * Function adds an entity into the Boards table
@@ -31,7 +32,7 @@ async function getAllBoards(): Promise<Board[]> {
 async function getByIdBoard(id = ''): Promise<Board> {
   const board = await getRepository(Board).findOne(id);
   if (!board) {
-    throw new NOT_FOUND_ERROR(`Couldn't find a board with ID:${id} `);
+    throw new HTTP_ERROR( StatusCodes.NOT_FOUND ,`Couldn't find a board with ID:${id} `);
   }
   return board;
 };
@@ -43,7 +44,7 @@ async function updateByIdBoard(id = '', dto: BoardDto): Promise<Board> {
   const boardRep = getRepository(Board);
   const board = await boardRep.findOne(id);
   if (!board) {
-    throw new NOT_FOUND_ERROR(`Couldn't find a board with ID:${id} `);
+    throw new HTTP_ERROR( StatusCodes.NOT_FOUND ,`Couldn't find a board with ID:${id} `);
   }
   return boardRep.save({...board, ...dto});
 };

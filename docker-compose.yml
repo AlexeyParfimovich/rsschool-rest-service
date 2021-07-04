@@ -22,6 +22,7 @@ services:
     depends_on:
       - postgres
     restart: on-failure
+    command: ['npm','run','start']
 
   postgres:
     container_name: postgres
