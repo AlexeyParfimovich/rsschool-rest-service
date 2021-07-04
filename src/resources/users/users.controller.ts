@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+import { AuthGuard } from '../../auth/auth.guard';
 import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
-import { AuthGuard } from '../../auth/auth.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -22,7 +22,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
-  // @UseGuards(AuthGuard)
   @Get('/')
   getAll(): Promise<User[]>{
     return this.userService.getAllUsers();
@@ -48,4 +47,4 @@ export class UsersController {
   deleteById(@Param('id') id: string): Promise<void>{
     return this.userService.deleteByIdUser(id);
   };
-}
+};
