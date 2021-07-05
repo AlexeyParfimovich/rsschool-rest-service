@@ -15,36 +15,40 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 200, type: User })
-  @Post()
-  create(@Body() dto: UserDto): Promise<User> {
-    return this.userService.addUser(dto);
+  @Post('/')
+  async create(@Body() dto: UserDto): Promise<Partial<User>> {
+    const user = await this.userService.addUser(dto);
+    return Promise.resolve(User.toRes(user));
   };
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
   @Get('/')
-  getAll(): Promise<User[]>{
-    return this.userService.getAllUsers();
+  async getAll(): Promise<Partial<User>[]>{
+    const users = await this.userService.getAllUsers();
+    return Promise.resolve(users.map(User.toRes));
   };
 
   @ApiOperation({ summary: 'Get user by Id' })
   @ApiResponse({ status: 200, type: User })
   @Get('/:id')
-  getById(@Param('id') id: string): Promise<User>{
-    return this.userService.getByIdUser(id);
+  async getById(@Param('id') id: string): Promise<Partial<User>>{
+    const user = await this.userService.getByIdUser(id);
+    return Promise.resolve(User.toRes(user));
   };
 
   @ApiOperation({ summary: 'Update user by Id' })
   @ApiResponse({ status: 200, type: User })
   @Put('/:id')
-  updateById(@Param('id') id: string, @Body() dto: UserDto): Promise<User>{
-    return this.userService.updateByIdUser(id, dto);
+  async updateById(@Param('id') id: string, @Body() dto: UserDto): Promise<Partial<User>>{
+    const user = await this.userService.updateByIdUser(id, dto);
+    return Promise.resolve(User.toRes(user));
   };
 
   @ApiOperation({ summary: 'Delete user by Id' })
   @ApiResponse({ status: 200 })
   @Delete('/:id')
-  deleteById(@Param('id') id: string): Promise<void>{
+  async deleteById(@Param('id') id: string): Promise<void>{
     return this.userService.deleteByIdUser(id);
   };
 };
