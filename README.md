@@ -50,6 +50,17 @@ To run tests
 npm run test:auth
 ```
 
+To run load tests
+
+```
+npm run test:load
+```
+
+## Analyzing the load tests results
+
+To analyze the results of load test use: https://reportviewer.artillery.io/  
+
+
 ### Auto-fix and format
 
 ```
