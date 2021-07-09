@@ -55,28 +55,36 @@ To run load tests
 ```
 npm run test:load
 ```
+  
 
-## Analyzing the load tests results
+## Analyzing the load tests results  
 
 To analyze the results of load test use: https://reportviewer.artillery.io/  
+  
+### The results obtained when running tests for platform-express and platform-fastify:  
 
 ### Express
-|--------------|----------------------------|------------------------------------------|  
-| Requests     | [total, rate]              | 5031, 16.75                                |  
-| Duration     | [total]                    | 300s                                      |  
-| Latencies    | [min, median, 95, 99, max] | 125.6ms, 275ms, 631.8ms, 1079.9ms, 1581.8ms  |  
-| Success      | [ratio]                    | 100.00%                                  |  
-| Status Codes | [code:count]               | 200:3354, 201:1677                         |  
+|               |                             |                                              |  
+|---------------|-----------------------------|----------------------------------------------|  
+| Requests      | [total, rate]               | 5031, 16.75                                  |  
+| Duration      | [total]                     | 300s                                         |  
+| Latencies     | [min, median, 95, 99, max]  | 125.6ms, 275ms, 631.8ms, 1079.9ms, 1581.8ms  |  
+| Success       | [ratio]                     | 100.00%                                      |  
+| Status Codes  | [code:count]                | 200 : 3354, 201 : 1677                       |  
+  
 
 ### Fastify
-|--------------|----------------------------|-------------------------------------------|
-| Requests     | [total, rate]              | 5040, 16.73                                 |
-| Duration     | [total]                    | 300s                                       |
-| Latencies    | [min, median, 95, 99, max] | 122.6ms, 270.3ms, 487.0ms, 791.6ms, 1100.6ms |
-| Success      | [ratio]                    | 100.00%                                   |
-| Status Codes | [code:count]               | 200:600, 201:300                          |
+|               |                             |                                              |  
+|---------------|-----------------------------|----------------------------------------------|
+| Requests      | [total, rate]               | 5040, 16.73                                  |
+| Duration      | [total]                     | 300s                                         |
+| Latencies     | [min, median, 95, 99, max]  | 122.6ms, 270.3ms, 487.0ms, 791.6ms, 1100.6ms |
+| Success       | [ratio]                     | 100.00%                                      |
+| Status Codes  | [code:count]                | 200 : 600, 201 : 300                         |
   
   
+    
+
 ## Auto-fix and format
 
 ```
