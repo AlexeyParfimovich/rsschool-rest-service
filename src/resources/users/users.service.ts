@@ -14,9 +14,9 @@ export class UsersService {
   async addUser(dto: UserDto): Promise<User> {
     const user = this.repository.create(dto);
     
-    if(await this.repository.findOne({ 'login': user.login })) {
-      throw new HttpException(`User with login "${user.login}" already exists `, HttpStatus.BAD_REQUEST);
-    }
+    // if(await this.repository.findOne({ 'login': user.login })) {
+    //   throw new HttpException(`User with login "${user.login}" already exists `, HttpStatus.BAD_REQUEST);
+    // }
     user.password = await hash(user.password, 10);
     return this.repository.save(user);
   };

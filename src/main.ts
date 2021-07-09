@@ -28,7 +28,7 @@ async function start() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/doc', app, document);
 
-  await app.listen(PORT, () => {
+  await app.listen(PORT, '0.0.0.0', () => {
     Logger.log(`Application is running on http://localhost:${PORT}`);
   });
 }
