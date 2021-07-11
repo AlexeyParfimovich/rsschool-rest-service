@@ -1,21 +1,22 @@
 import { NestFactory } from '@nestjs/core';
-import { INestApplication, Logger } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
 import { AppModule } from './app.module';
 import { PORT, USE_FASTIFY } from "./common/config";
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { uncaughtExceptionLogger, unhandledRejectionLogger } from './errors/handlers';
+import { logger } from './errors/logger';
 
 async function start() {
   let app: INestApplication;
   
   if(!USE_FASTIFY){
-    app = await NestFactory.create(AppModule, { logger: ['log', 'error', 'warn'] });  
+    app = await NestFactory.create(AppModule);  
   } else {
     app = await NestFactory.create<NestFastifyApplication>(
       AppModule,
       new FastifyAdapter({ logger: true }),
-      { logger: ['log', 'error', 'warn'] }
     );
   }
 
@@ -28,8 +29,12 @@ async function start() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/doc', app, document);
 
+  process.on('unhandledRejection', unhandledRejectionLogger);
+
+  process.on('uncaughtException', uncaughtExceptionLogger);
+
   await app.listen(PORT, '0.0.0.0', () => {
-    Logger.log(`Application is running on http://localhost:${PORT}`);
+    logger.log('info', `Application is running on http://localhost:${PORT}`);
   });
 }
 

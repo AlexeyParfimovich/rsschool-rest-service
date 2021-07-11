@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import ormconfig from "./ormconfig";
@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from "./resources/users/users.module";
 import { TasksModule } from "./resources/tasks/tasks.module";
 import { BoardsModule } from "./resources/boards/boards.module";
+import { httpRequestLogger } from "./errors/handlers";
 
 @Module({
   controllers: [],
@@ -18,4 +19,9 @@ import { BoardsModule } from "./resources/boards/boards.module";
     BoardsModule,
   ],
 })
-export class AppModule {};
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer
+      .apply(httpRequestLogger)
+      .forRoutes('*');
+  }};
