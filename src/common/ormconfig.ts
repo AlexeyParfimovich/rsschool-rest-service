@@ -1,9 +1,9 @@
-import * as cfg from './common/config';
-import { User } from "./resources/users/user.entity";
-import { Task } from "./resources/tasks/task.entity";
-import { Board } from "./resources/boards/board.entity";
-import { CreateTables } from "./migration/createTables";
-import { AddUser } from "./migration/addUser";
+import * as cfg from './config';
+import { User } from "../resources/users/user.entity";
+import { Task } from "../resources/tasks/task.entity";
+import { Board } from "../resources/boards/board.entity";
+import { CreateTables } from "../migration/createTables";
+import { AddUser } from "../migration/addUser";
 
 export = {
    type: "postgres",

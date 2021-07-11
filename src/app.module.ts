@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import ormconfig from "./ormconfig";
+import ormconfig from "./common/ormconfig";
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from "./resources/users/users.module";
 import { TasksModule } from "./resources/tasks/tasks.module";
 import { BoardsModule } from "./resources/boards/boards.module";
-import { httpRequestLogger } from "./errors/handlers";
+import { httpRequestLogger } from "./middleware/logHandlers";
 
 @Module({
   controllers: [],

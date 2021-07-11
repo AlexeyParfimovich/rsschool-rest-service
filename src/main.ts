@@ -1,12 +1,13 @@
-import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
 import { AppModule } from './app.module';
 import { PORT, USE_FASTIFY } from "./common/config";
-import { uncaughtExceptionLogger, unhandledRejectionLogger } from './errors/handlers';
-import { logger } from './errors/logger';
+import { uncaughtExceptionLogger, unhandledRejectionLogger } from './middleware/logHandlers';
+import { ExceptionsFilter } from './middleware/exceptionFilter';
+import { logger } from './middleware/logger';
 
 async function start() {
   let app: INestApplication;
@@ -29,8 +30,10 @@ async function start() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/doc', app, document);
 
-  process.on('unhandledRejection', unhandledRejectionLogger);
+  const { httpAdapter } = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new ExceptionsFilter(httpAdapter));
 
+  process.on('unhandledRejection', unhandledRejectionLogger);
   process.on('uncaughtException', uncaughtExceptionLogger);
 
   await app.listen(PORT, '0.0.0.0', () => {

@@ -1,27 +1,10 @@
 /**
  * Error-handling and request-logging middleware functions
- * @module middleware
  */
 
-import { HttpException, HttpStatus } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { finished } from 'stream';
 import { logger } from './logger';
-
-/**
- * Middleware function to handle custom errors
- */
-function errorHandler(err: Error, _req: Request, res: Response, next: NextFunction): void {
-  if (err instanceof HttpException) {
-    logger.log('error',`${err.getStatus()} ${err.stack}`);  
-    res.status(err.getStatus()).send(err.message);
-  } else if (err) {
-    logger.log('error',`${HttpStatus.INTERNAL_SERVER_ERROR} ${err.stack}`);  
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('INTERNAL_SERVER_ERROR');
-  }
-
-  next();
-};
 
 /**
  * Middleware function to log unhandled rejection
@@ -54,4 +37,4 @@ function httpRequestLogger(req: Request, res: Response, next: NextFunction): voi
   })
 };
 
-export { errorHandler, unhandledRejectionLogger, uncaughtExceptionLogger, httpRequestLogger };
+export { unhandledRejectionLogger, uncaughtExceptionLogger, httpRequestLogger };

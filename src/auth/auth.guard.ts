@@ -12,11 +12,16 @@ export class AuthGuard implements CanActivate {
 
     try {
       const authHeader = req.headers.authorization;
+
+      if(!authHeader) {
+        throw new UnauthorizedException('authorization header is undefined');
+      }
+
       const bearer = authHeader.split(' ')[0];
       const token = authHeader.split(' ')[1];
 
       if(bearer !== 'Bearer' || !token) {
-        throw new UnauthorizedException('Authorization failed: no token provided');
+        throw new UnauthorizedException('no token provided');
       }
 
       req.user = await this.jwtService.verifyAsync(token);
