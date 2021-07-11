@@ -8,6 +8,9 @@ dotenv.config({
 const NODE_ENV = process.env['NODE_ENV'] ?? 'development';
 const PORT = Number(process.env['PORT']) ?? 4000;
 const AUTH_MODE = process.env['AUTH_MODE'] === 'true';
+const USE_FASTIFY = process.env['USE_FASTIFY'] === 'true';
+const JWT_SECRET_KEY = process.env['JWT_SECRET_KEY'] ?? 'secret-key';
+
 const LOGGING_SUPPRESS = process.env['LOGGING_SUPPRESS'] === 'true';
 const LOG_INFO_FILE = process.env['LOG_INFO_FILE'] ?? './logs/info.log';
 const LOG_ERROR_FILE = process.env['LOG_ERROR_FILE'] ?? './logs/errors.log';
@@ -22,13 +25,11 @@ const POSTGRES_SYNCHRONIZE = process.env['POSTGRES_SYNCHRONIZE'] === 'true';
 const POSTGRES_MIGRATION_RUN = process.env['POSTGRES_MIGRATION_RUN'] === 'true';
 const POSTGRES_LOGGING = process.env['POSTGRES_LOGGING'] === 'true';
 
-const { JWT_SECRET_KEY, DB_CONNECTION } = process.env;
-
 export { 
   PORT,
   NODE_ENV,
   AUTH_MODE,
-  DB_CONNECTION,
+  USE_FASTIFY,
   JWT_SECRET_KEY,
   LOGGING_SUPPRESS,
   LOG_INFO_FILE,

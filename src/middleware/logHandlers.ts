@@ -1,29 +1,10 @@
 /**
  * Error-handling and request-logging middleware functions
- * @module middleware
  */
 
-import { StatusCodes, getReasonPhrase} from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 import { finished } from 'stream';
-
-import { HTTP_ERROR } from './httpError';
 import { logger } from './logger';
-
-/**
- * Middleware function to handle custom errors
- */
-function errorHandler(err: Error, _req: Request, res: Response, next: NextFunction): void {
-  if (err instanceof HTTP_ERROR) {
-    logger.log('error',`${err.status} ${err.stack}`);  
-    res.status(err.status).send(err.message);
-  } else if (err) {
-    logger.log('error',`${StatusCodes.INTERNAL_SERVER_ERROR} ${err.stack}`);  
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-  }
-
-  next();
-};
 
 /**
  * Middleware function to log unhandled rejection
@@ -56,4 +37,4 @@ function httpRequestLogger(req: Request, res: Response, next: NextFunction): voi
   })
 };
 
-export { errorHandler, unhandledRejectionLogger, uncaughtExceptionLogger, httpRequestLogger };
+export { unhandledRejectionLogger, uncaughtExceptionLogger, httpRequestLogger };
